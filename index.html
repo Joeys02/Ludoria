@@ -146,6 +146,21 @@ html{color-scheme:light}
 body{margin:0}
 [hidden]{display:none!important}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.fig{transform-box:fill-box;transform-origin:50% 60%}
+.pc.fly{transition:transform .7s cubic-bezier(.25,.6,.3,1) .45s}
+.fig.hit{animation:tumble .7s .45s both}
+@keyframes tumble{0%{transform:translateY(0) rotate(0)}45%{transform:translateY(-38px) rotate(300deg)}100%{transform:translateY(0) rotate(720deg)}}
+.fig.hop{animation:hop .24s ease-out}
+@keyframes hop{50%{transform:translateY(-7px)}}
+.pc.can .fig{animation:bob .9s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.fig.kick{animation:lunge .6s .15s}
+@keyframes lunge{40%{transform:translateX(calc(var(--d,1)*3px))}}
+.fig.kick .legK{animation:kick .6s .15s ease-in-out}
+@keyframes kick{0%{transform:rotate(0)}30%{transform:rotate(calc(var(--d,1)*30deg))}55%{transform:rotate(calc(var(--d,1)*-85deg))}100%{transform:rotate(0)}}
+.door{transition:transform .35s ease-out}
+.door.open{transform:rotate(-100deg)}
+@media (prefers-reduced-motion:reduce){.fig.hit,.fig.kick,.fig.kick .legK,.fig.hop,.pc.can .fig{animation:none}}
 
 /* Sheets */
 .overlay{position:fixed;inset:0;background:rgba(15,12,40,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20}
@@ -643,13 +658,70 @@ function nextTurn(extra){
 
 /* ---------- Anzeige ---------- */
 function ctr(cell){return [cell[0]*40+30,cell[1]*40+30]}
+function figSVG(col,emoji){
+  return '<g class="fig"><ellipse cy="17.5" rx="9" ry="3" fill="#000" fill-opacity=".22"/>'+
+    '<rect x="-6" y="6" width="5" height="10" rx="2.2" fill="#3a3550"/><ellipse cx="-4.5" cy="16.6" rx="4.4" ry="2.5" fill="#1f1b2e"/>'+
+    '<g transform="translate(3.5,6)"><g class="legK"><rect x="-2.5" y="0" width="5" height="10" rx="2.2" fill="#3a3550"/><ellipse cx="0.4" cy="10.6" rx="4.8" ry="2.5" fill="#1f1b2e"/></g></g>'+
+    '<path d="M-6.5,-3.5L-10.5,4.5M6.5,-3.5L10.5,4.5" stroke="#f2c29a" stroke-width="3.2" stroke-linecap="round" fill="none"/>'+
+    '<rect x="-7.5" y="-6.5" width="15" height="15" rx="5.5" fill="'+col+'" stroke="#fff" stroke-width="1.6"/>'+
+    '<text text-anchor="middle" dominant-baseline="central" font-size="11" y="2">'+emoji+'</text>'+
+    '<circle cy="-13" r="7.6" fill="#f6cba5" stroke="#fff" stroke-width="1.2"/>'+
+    '<path d="M-7.6,-14A7.6,7.6 0 0 1 7.6,-14Z" fill="'+col+'" stroke="#fff" stroke-width="1"/>'+
+    '<circle cx="-2.6" cy="-11.8" r="1.1" fill="#2b2540"/><circle cx="2.6" cy="-11.8" r="1.1" fill="#2b2540"/>'+
+    '<path d="M-2.4,-9.2Q0,-7.2 2.4,-9.2" stroke="#2b2540" fill="none" stroke-width="1" stroke-linecap="round"/></g>';
+}
+function setVar(el,v){if(el&&el.style&&el.style.setProperty)el.style.setProperty('--d',String(v))}
+function restartAnim(el){if(el)void el.offsetWidth}
+function thud(){
+  var c=actx();if(!c)return;
+  try{var t0=c.currentTime,o=c.createOscillator(),g=c.createGain();
+    o.type='triangle';o.frequency.setValueAtTime(230,t0);o.frequency.exponentialRampToValueAtTime(55,t0+.18);
+    g.gain.setValueAtTime(.28,t0);g.gain.exponentialRampToValueAtTime(.001,t0+.22);
+    o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+.25)}catch(e){}
+}
+function creak(){
+  var c=actx();if(!c)return;
+  try{var t0=c.currentTime,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter(),l=c.createOscillator(),lg=c.createGain();
+    o.type='sawtooth';o.frequency.setValueAtTime(140,t0);o.frequency.linearRampToValueAtTime(270,t0+.35);o.frequency.linearRampToValueAtTime(190,t0+.7);
+    l.frequency.value=23;lg.gain.value=26;l.connect(lg);lg.connect(o.frequency);
+    f.type='bandpass';f.frequency.value=720;f.Q.value=3;
+    g.gain.setValueAtTime(.0001,t0);g.gain.linearRampToValueAtTime(.09,t0+.08);g.gain.linearRampToValueAtTime(.05,t0+.5);g.gain.exponentialRampToValueAtTime(.0001,t0+.82);
+    o.connect(f);f.connect(g);g.connect(c.destination);o.start(t0);l.start(t0);o.stop(t0+.85);l.stop(t0+.85)}catch(e){}
+}
+function figOf(el){return el&&el.querySelector?el.querySelector('.fig'):null}
+function fxKick(ev){
+  var m=ev.mover,fig=figOf(m.el),a=cellOf(m.c,m.from,m.pi),b=cellOf(m.c,m.to,m.pi);
+  if(fig){setVar(fig,(b[0]-a[0])<0?-1:1);fig.classList.remove('hop');restartAnim(fig);fig.classList.add('kick');setTimeout(function(){fig.classList.remove('kick')},800)}
+  ev.kicked.forEach(function(el){
+    var f=figOf(el);el.classList.add('fly');if(f){f.classList.remove('hit');restartAnim(f);f.classList.add('hit')}
+    setTimeout(function(){el.classList.remove('fly');if(f)f.classList.remove('hit')},1300);
+  });
+  setTimeout(thud,450);
+}
+function fxHop(m){
+  var f=figOf(m.el);if(!f)return;
+  f.classList.remove('hop');restartAnim(f);f.classList.add('hop');setTimeout(function(){f.classList.remove('hop')},320);
+}
+function fxDoor(c){
+  var d=$('#door-'+c);if(!d)return;
+  d.classList.add('open');creak();
+  setTimeout(function(){d.classList.remove('open')},1200);
+}
 function boardSVG(){
   var B=BOARDS[ST.board]||BOARDS.classic,o='',c,i,xy;
   o+='<rect width="460" height="460" rx="26" fill="'+B.frame+'"/><rect x="8" y="8" width="444" height="444" rx="20" fill="'+B.bg+'"/>';
   var corners=[[0,0],[9,0],[9,9],[0,9]];
   for(c=0;c<4;c++){
-    o+='<rect x="'+(corners[c][0]*40+12)+'" y="'+(corners[c][1]*40+12)+'" width="76" height="76" rx="22" fill="'+B.pc[c]+'" fill-opacity=".3" stroke="'+B.pc[c]+'" stroke-width="3"/>';
-    for(i=0;i<4;i++){xy=ctr(BASES[c][i]);o+='<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="15" fill="'+B.track+'" fill-opacity=".7" stroke="'+B.pc[c]+'" stroke-width="2.5"/>'}
+    var hx=corners[c][0]*40+50,hy=corners[c][1]*40+50,tf='translate('+hx+','+hy+') rotate('+(90*c)+')';
+    o+='<g transform="'+tf+'"><rect x="-38" y="-38" width="76" height="76" rx="9" fill="#8b5e3c"/>'+
+      '<rect x="-31" y="-31" width="62" height="62" rx="4" fill="'+B.bg+'"/><rect x="-31" y="-31" width="62" height="62" rx="4" fill="'+B.pc[c]+'" fill-opacity=".32"/>'+
+      '<path d="M-31,-16H31M-31,0H31M-31,16H31" stroke="'+B.pc[c]+'" stroke-opacity=".28" stroke-width="1.5"/>'+
+      '<rect x="-31" y="-31" width="62" height="62" rx="4" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>'+
+      '<rect x="-38" y="-38" width="76" height="76" rx="9" fill="none" stroke="#5a3a1e" stroke-width="2"/>'+
+      '<rect x="-11" y="29" width="22" height="10" fill="'+B.bg+'"/><rect x="-11" y="29" width="22" height="10" fill="'+B.pc[c]+'" fill-opacity=".32"/>'+
+      '<rect x="-41" y="-41" width="9" height="9" rx="2" fill="#6d4526"/><rect x="32" y="-41" width="9" height="9" rx="2" fill="#6d4526"/><rect x="-41" y="32" width="9" height="9" rx="2" fill="#6d4526"/><rect x="32" y="32" width="9" height="9" rx="2" fill="#6d4526"/></g>';
+    for(i=0;i<4;i++){xy=ctr(BASES[c][i]);o+='<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="14" fill="'+B.track+'" fill-opacity=".5" stroke="'+B.pc[c]+'" stroke-width="2"/>'}
+    o+='<g transform="'+tf+'"><g transform="translate(-11,34)"><g class="door" id="door-'+c+'"><rect x="0" y="-3.5" width="22" height="7" rx="2" fill="#a8733f" stroke="#5a3a1e" stroke-width="1.5"/><circle cx="18" cy="0" r="1.6" fill="#f2c94c"/></g></g></g>';
   }
   for(i=0;i<40;i++){
     xy=ctr(TRACK[i]);
@@ -663,9 +735,8 @@ function boardSVG(){
   ST.players.forEach(function(p){
     for(var pi=0;pi<4;pi++){
       var q=ctr(cellOf(p.c,p.pieces[pi],pi));
-      o+='<g class="pc" id="pc-'+p.c+'-'+pi+'" data-c="'+p.c+'" data-pi="'+pi+'" style="transform:translate('+q[0]+'px,'+q[1]+'px)">'+
-        '<circle r="26" fill="transparent"/><circle class="ring" r="24"/><circle r="18" fill="'+B.pc[p.c]+'" stroke="#fff" stroke-width="3"/><circle r="13" fill="#fff" fill-opacity=".92"/>'+
-        '<text text-anchor="middle" dominant-baseline="central" font-size="19" y="1">'+p.emoji+'</text></g>';
+      o+='<g class="pc" id="pc-'+p.c+'-'+pi+'" data-c="'+p.c+'" data-pi="'+pi+'" data-s="'+p.pieces[pi]+'" style="transform:translate('+q[0]+'px,'+q[1]+'px)">'+
+        '<circle r="26" fill="transparent"/><circle class="ring" r="24"/>'+figSVG(B.pc[p.c],p.emoji)+'</g>';
     }
   });
   return '<svg viewBox="0 0 460 460" id="board" role="group" aria-label="Ludoria">'+o+'</svg>';
@@ -722,6 +793,20 @@ function renderGame(){
   if(!ST)return;
   if(builtGid!==ST.gid||!$('#board'))buildGame();
   var cp=ST.players[ST.turn];
+  var ev={kicked:[],mover:null,exits:[]};
+  ST.players.forEach(function(p){
+    p.pieces.forEach(function(s,pi){
+      var el=$('#pc-'+p.c+'-'+pi);if(!el)return;
+      var os=el.dataset.s;os=(os===undefined||os==='')?s:+os;
+      if(os!==s){
+        if(s===-1&&os>=0)ev.kicked.push(el);
+        else if(s>=0){ev.mover={el:el,c:p.c,pi:pi,from:os,to:s};if(os===-1)ev.exits.push(p.c)}
+      }
+      el.dataset.s=String(s);
+    });
+  });
+  if(ev.mover&&ev.kicked.length)fxKick(ev);else if(ev.mover)fxHop(ev.mover);
+  ev.exits.forEach(fxDoor);
   ST.players.forEach(function(p,i){
     p.pieces.forEach(function(s,pi){
       var el=$('#pc-'+p.c+'-'+pi);if(!el)return;
