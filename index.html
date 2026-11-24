@@ -292,7 +292,7 @@ var L={
     again:'Eine Sechs! Nochmal würfeln.',againFlower:'Glücksblume! Nochmal würfeln.',fxBoost:'Rückenwind! 3 Felder vor.',fxBack:'Gegenwind! 3 Felder zurück.',fxPortal:'Portal! 10 Felder weiter.',fxFlower:'Glücksblume! Du darfst nochmal.',wleg:'<b>Sonderfelder:</b> ⏩ Rückenwind +3 · ⏪ Gegenwind −3 · 🍄 Pilz: sicher, nur 1 Figur · 🌀 Portal +10 · 🌼 Nochmal würfeln',kick:'{a} wirft {b} raus!',win:'{n} hat gewonnen!',replay:'Nochmal spielen',menu:'Zum Menü',
     leave:'Spiel verlassen?',leaveSub:'Der Spielstand geht verloren.',stay:'Weiterspielen',leaveBtn:'Verlassen',chooseEmoji:'Figur wählen',
     player:'Spieler {n}',soon:'Online mit Freunden und Sprachchat kommen als Nächstes.',reactH:'Reaktionen',back:'Zurück',questsH:'Aufgaben',online:'Online mit Familie',offlineH:'Am selben Handy oder gegen den Computer',yourName:'Dein Name',createRoom:'Raum erstellen',joinRoom:'Beitreten',codeLabel:'Raumcode',invite:'Per WhatsApp einladen',copyLink:'Link kopieren',linkCopied:'Link kopiert.',waitHost:'Warte, bis der Host das Spiel startet.',botsLbl:'Computer-Spieler',roomPlayers:'Im Raum',hostTag:'Host',needTwo:'Es braucht 2 bis 4 Spieler.',roomNotFound:'Diesen Raum gibt es nicht.',gameRunning:'Dort läuft schon ein Spiel.',roomFull:'Der Raum ist voll.',notSetup:'Online ist noch nicht eingerichtet. Siehe ANLEITUNG.md.',micDenied:'Kein Mikrofon. Erlaube es im Browser und tippe auf den Mikrofon-Knopf.',netErr:'Keine Verbindung. Versuche es nochmal.',newRound:'Neue Runde',voiceOn:'Mikrofon ausschalten',voiceOff:'Mikrofon einschalten',routeSpk:'Ton über Lautsprecher',routeEar:'Ton über Hörer',inviteText:'Komm in mein Ludoria-Spiel! Raumcode: {c} {u}',stats:'Partien {g} · Siege {w} · Rausgeworfen {k}',rewardLbl:'Belohnung',done:'Geschafft',boardWord:'Brett',diceWord:'Würfel',
-    quest:'Aufgabe geschafft! Neu: {x}',lockedMsg:'Gesperrt. Aufgabe: {q}',newUnlock:'Neu freigeschaltet',musicOn:'Musik ausschalten',musicOff:'Musik einschalten',
+    quest:'Aufgabe geschafft! Neu: {x}',lockedMsg:'Gesperrt. Aufgabe: {q}',newUnlock:'Neu freigeschaltet',sfxOn:'Geräusche ausschalten',sfxOff:'Geräusche einschalten',musicOn:'Musik ausschalten',musicOff:'Musik einschalten',
     q_games:'Spiele {n} Partien',q_wins1:'Gewinne 1 Partie',q_wins:'Gewinne {n} Partien',q_kicks:'Wirf {n} Figuren raus',q_sixes:'Würfle {n} Sechsen',q_goals:'Bringe {n} Figuren ins Ziel',
     b_classic:'Klassik',b_meadow:'Wiese',b_ocean:'Ozean',b_night:'Nachthimmel',b_wald:'Knallwald',d_classic:'Klassisch',d_candy:'Bonbon',d_night:'Nacht',d_gold:'Gold'},
   en:{tag:'Roll, bump, win',howMany:'How many players?',humans:'Of which human',names:'Names and tokens',human:'Human',cpu:'Computer',
@@ -301,7 +301,7 @@ var L={
     again:'A six! Roll again.',againFlower:'Lucky flower! Roll again.',fxBoost:'Tailwind! 3 steps forward.',fxBack:'Headwind! 3 steps back.',fxPortal:'Portal! 10 steps ahead.',fxFlower:'Lucky flower! Roll again.',wleg:'<b>Special fields:</b> ⏩ Tailwind +3 · ⏪ Headwind −3 · 🍄 Mushroom: safe, 1 piece only · 🌀 Portal +10 · 🌼 Roll again',kick:'{a} bumps {b} out!',win:'{n} wins!',replay:'Play again',menu:'Back to menu',
     leave:'Leave the game?',leaveSub:'Your progress will be lost.',stay:'Keep playing',leaveBtn:'Leave',chooseEmoji:'Choose token',
     player:'Player {n}',soon:'Online play with friends and voice chat are coming next.',reactH:'Reactions',back:'Back',questsH:'Quests',online:'Online with family',offlineH:'Same phone or against the computer',yourName:'Your name',createRoom:'Create room',joinRoom:'Join',codeLabel:'Room code',invite:'Invite via WhatsApp',copyLink:'Copy link',linkCopied:'Link copied.',waitHost:'Waiting for the host to start the game.',botsLbl:'Computer players',roomPlayers:'In the room',hostTag:'Host',needTwo:'You need 2 to 4 players.',roomNotFound:'That room does not exist.',gameRunning:'A game is already running there.',roomFull:'The room is full.',notSetup:'Online is not set up yet. See ANLEITUNG.md.',micDenied:'No microphone. Allow it in your browser and tap the microphone button.',netErr:'No connection. Please try again.',newRound:'New round',voiceOn:'Turn microphone off',voiceOff:'Turn microphone on',routeSpk:'Sound via speaker',routeEar:'Sound via earpiece',inviteText:'Join my Ludoria game! Room code: {c} {u}',stats:'Games {g} · Wins {w} · Bumped {k}',rewardLbl:'Reward',done:'Done',boardWord:'Board',diceWord:'Dice',
-    quest:'Quest complete! New: {x}',lockedMsg:'Locked. Quest: {q}',newUnlock:'Newly unlocked',musicOn:'Turn music off',musicOff:'Turn music on',
+    quest:'Quest complete! New: {x}',lockedMsg:'Locked. Quest: {q}',newUnlock:'Newly unlocked',sfxOn:'Turn sounds off',sfxOff:'Turn sounds on',musicOn:'Turn music off',musicOff:'Turn music on',
     q_games:'Play {n} games',q_wins1:'Win 1 game',q_wins:'Win {n} games',q_kicks:'Bump out {n} pieces',q_sixes:'Roll {n} sixes',q_goals:'Get {n} pieces home',
     b_classic:'Classic',b_meadow:'Meadow',b_ocean:'Ocean',b_night:'Night sky',b_wald:'Bang forest',d_classic:'Classic',d_candy:'Candy',d_night:'Night',d_gold:'Gold'}
 };
@@ -322,7 +322,7 @@ var PIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
 /* ---------- Einstellungen ---------- */
 var KEY='ludoria-v1';
 var S=(function(){
-  var d={lang:((navigator.language||'de').slice(0,2)==='de')?'de':'en',count:4,humans:1,board:'classic',dice:'classic',emojis:['🦊','🐸','🐙','🐼'],names:['','','',''],stats:{games:0,wins:0,kicks:0,sixes:0,goals:0},done:[],music:true};
+  var d={lang:((navigator.language||'de').slice(0,2)==='de')?'de':'en',count:4,humans:1,board:'classic',dice:'classic',emojis:['🦊','🐸','🐙','🐼'],names:['','','',''],stats:{games:0,wins:0,kicks:0,sixes:0,goals:0},done:[],sfx:true};
   try{var o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){Object.keys(d).forEach(function(k){if(o[k]!==undefined)d[k]=o[k]})}}catch(e){}
   if(!BOARDS[d.board])d.board='classic';
   if(DICE.indexOf(d.dice)<0)d.dice='classic';
@@ -382,7 +382,8 @@ function bump(stat,n){
   }
 }
 function musicBtn(){
-  return '<button class="mb" data-act="music" aria-pressed="'+S.music+'" aria-label="'+t(S.music?'musicOn':'musicOff')+'">'+(S.music?'🎵':'🔇')+'</button>';
+  var on=S.sfx!==false;
+  return '<button class="mb sb" data-act="music" aria-pressed="'+on+'" aria-label="'+t(on?'sfxOn':'sfxOff')+'">'+(on?'🎲':'🔇')+'</button>';
 }
 
 /* ---------- Würfel ---------- */
@@ -740,7 +741,47 @@ function figSVG(col,emoji){
 }
 function setVar(el,v){if(el&&el.style&&el.style.setProperty)el.style.setProperty('--d',String(v))}
 function restartAnim(el){if(el)void el.offsetWidth}
+function sfxOn(){return S.sfx!==false}
+function toggleSfx(){
+  S.sfx=!sfxOn();save();
+  document.querySelectorAll('.mb.sb').forEach(function(b){
+    b.setAttribute('aria-pressed',String(S.sfx));
+    b.setAttribute('aria-label',t(S.sfx?'sfxOn':'sfxOff'));
+    b.textContent=S.sfx?'🎲':'🔇';
+  });
+  if(S.sfx)diceLand();
+}
+var NOISE=null;
+function noiseBuf(c){
+  if(NOISE&&NOISE.sampleRate===c.sampleRate)return NOISE;
+  var n=Math.floor(c.sampleRate*.12),b=c.createBuffer(1,n,c.sampleRate),d=b.getChannelData(0),i;
+  for(i=0;i<n;i++)d[i]=Math.random()*2-1;
+  return NOISE=b;
+}
+function clack(c,t0,f,v,dur){
+  var s=c.createBufferSource(),bp=c.createBiquadFilter(),g=c.createGain();
+  s.buffer=noiseBuf(c);bp.type='bandpass';bp.frequency.value=f;bp.Q.value=2.2;
+  g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.0005,t0+dur);
+  s.connect(bp);bp.connect(g);g.connect(c.destination);s.start(t0);s.stop(t0+dur+.02);
+}
+function diceRoll(){
+  if(!sfxOn())return;
+  var c=actx();if(!c)return;
+  try{var t0=c.currentTime+.01,k,at=0;
+    for(k=0;k<9;k++){clack(c,t0+at,1400+Math.random()*2400,.34-k*.02,.045);at+=.045+k*.012+Math.random()*.02}
+  }catch(e){}
+}
+function diceLand(){
+  if(!sfxOn())return;
+  var c=actx();if(!c)return;
+  try{var t0=c.currentTime+.01,o=c.createOscillator(),g=c.createGain();
+    clack(c,t0,2200,.4,.05);
+    o.type='triangle';o.frequency.setValueAtTime(190,t0);o.frequency.exponentialRampToValueAtTime(80,t0+.12);
+    g.gain.setValueAtTime(.22,t0);g.gain.exponentialRampToValueAtTime(.001,t0+.16);
+    o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+.18)}catch(e){}
+}
 function thud(){
+  if(!sfxOn())return;
   var c=actx();if(!c)return;
   try{var t0=c.currentTime,o=c.createOscillator(),g=c.createGain();
     o.type='triangle';o.frequency.setValueAtTime(230,t0);o.frequency.exponentialRampToValueAtTime(55,t0+.18);
@@ -748,6 +789,7 @@ function thud(){
     o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+.25)}catch(e){}
 }
 function creak(){
+  if(!sfxOn())return;
   var c=actx();if(!c)return;
   try{var t0=c.currentTime,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter(),l=c.createOscillator(),lg=c.createGain();
     o.type='sawtooth';o.frequency.setValueAtTime(140,t0);o.frequency.linearRampToValueAtTime(270,t0+.35);o.frequency.linearRampToValueAtTime(190,t0+.7);
@@ -936,10 +978,10 @@ function diceState(){
   var el=$('#dice');if(!el)return;
   if(ST.phase==='rolling'){
     el.classList.add('rolling');
-    if(!tick)tick=setInterval(function(){showDice(1+Math.floor(Math.random()*6))},80);
+    if(!tick){tick=setInterval(function(){showDice(1+Math.floor(Math.random()*6))},80);diceRoll()}
   }else{
     el.classList.remove('rolling');
-    if(tick){clearInterval(tick);tick=null}
+    if(tick){clearInterval(tick);tick=null;diceLand()}
     if(ST.roll>0)lastFace=ST.roll;
     showDice(lastFace);
   }
@@ -1219,7 +1261,7 @@ function handle(t0){
       closeSheet();
       if(inRoom())renderRoom();else home();
       break}
-    case 'music':toggleMusic();break;
+    case 'music':toggleSfx();break;
     case 'voice':voiceToggle();break;
     case 'vout':voiceRoute();break;
     case 'start':startLocal();break;
@@ -1270,7 +1312,6 @@ function copyText(txt){
   }catch(err){toast(txt)}
 }
 document.addEventListener('click',function(e){
-  if(S.music&&!(mx&&mx.timer))musicOn();
   if(AUDIO_CTX&&AUDIO_CTX.state==='suspended'){try{AUDIO_CTX.resume()}catch(err){}}
   var pcEl=e.target.closest('.pc');
   if(pcEl){
@@ -1296,94 +1337,6 @@ document.addEventListener('input',function(e){
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('#overlay').hidden)closeSheet()});
 
-/* ---------- Entspannende Hintergrundmusik: wird live mit WebAudio erzeugt, keine Dateien ---------- */
-var AC=window.AudioContext||window.webkitAudioContext,mx=null;
-var CH=[[48,55,59,64],[45,52,55,60],[41,48,52,57],[43,50,52,59]];
-var PENTA=[72,74,76,79,81,84,86];
-var BARLEN=8;
-function mf(m){return 440*Math.pow(2,(m-69)/12)}
-function mxInit(){
-  if(mx||!AC)return;
-  var ctx=new AC({latencyHint:'playback'}),master=ctx.createGain(),bus=ctx.createGain(),lp=ctx.createBiquadFilter(),conv=ctx.createConvolver();
-  var comp=ctx.createDynamicsCompressor(),dry=ctx.createGain(),wet=ctx.createGain();
-  var len=Math.floor(ctx.sampleRate*2),buf=ctx.createBuffer(2,len,ctx.sampleRate);
-  for(var ch=0;ch<2;ch++){var d=buf.getChannelData(ch);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.4)}
-  conv.buffer=buf;
-  master.gain.value=0;lp.type='lowpass';lp.frequency.value=2600;dry.gain.value=.75;wet.gain.value=.55;
-  bus.connect(lp);lp.connect(dry);lp.connect(conv);conv.connect(wet);dry.connect(master);wet.connect(master);
-  var dl=ctx.createDelay(1.5),fb=ctx.createGain(),dg=ctx.createGain();
-  dl.delayTime.value=.62;fb.gain.value=.38;dg.gain.value=.4;
-  dl.connect(fb);fb.connect(dl);dl.connect(dg);dg.connect(lp);
-  master.connect(comp);comp.connect(ctx.destination);
-  mx={ctx:ctx,master:master,bus:bus,dl:dl,next:0,bar:0,timer:null};
-}
-function mxPad(f,t0,dur){
-  [-6,6].forEach(function(det){
-    var o=mx.ctx.createOscillator(),g=mx.ctx.createGain();
-    o.type='triangle';o.frequency.value=f;o.detune.value=det;
-    g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.04,t0+2.4);g.gain.setValueAtTime(.04,t0+dur-.2);g.gain.linearRampToValueAtTime(0,t0+dur+2.6);
-    o.connect(g);g.connect(mx.bus);o.start(t0);o.stop(t0+dur+2.8);
-  });
-}
-function mxBass(f,t0,dur){
-  var o=mx.ctx.createOscillator(),g=mx.ctx.createGain();
-  o.type='sine';o.frequency.value=f;
-  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.08,t0+1.4);g.gain.setValueAtTime(.08,t0+dur-.3);g.gain.linearRampToValueAtTime(0,t0+dur+1.6);
-  o.connect(g);g.connect(mx.bus);o.start(t0);o.stop(t0+dur+1.8);
-}
-function mxBell(f,t0,v){
-  var c=mx.ctx,o=c.createOscillator(),o2=c.createOscillator(),g=c.createGain(),g2=c.createGain();
-  o.type='sine';o.frequency.value=f;o2.type='sine';o2.frequency.value=f*2.01;
-  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(v,t0+.012);g.gain.exponentialRampToValueAtTime(.0006,t0+3.2);
-  g2.gain.setValueAtTime(0,t0);g2.gain.linearRampToValueAtTime(v*.25,t0+.01);g2.gain.exponentialRampToValueAtTime(.0006,t0+1.1);
-  o.connect(g);o2.connect(g2);g.connect(mx.bus);g.connect(mx.dl);g2.connect(mx.bus);
-  o.start(t0);o2.start(t0);o.stop(t0+3.4);o2.stop(t0+1.3);
-}
-function mxTick(){
-  if(!mx)return;
-  var c=mx.ctx;
-  while(mx.next<c.currentTime+1.5){
-    var chord=CH[mx.bar%4],t0=mx.next;
-    chord.forEach(function(m,i){mxPad(mf(m),t0+i*.35,BARLEN)});
-    mxBass(mf(chord[0]-12),t0,BARLEN);
-    var n=4+Math.floor(Math.random()*3),tt2=t0+1.2;
-    for(var k=0;k<n;k++){
-      if(Math.random()<.78)mxBell(mf(PENTA[Math.floor(Math.random()*PENTA.length)]),tt2,.07+Math.random()*.03);
-      tt2+=.9+Math.random()*1.2;
-    }
-    mx.next+=BARLEN;mx.bar++;
-  }
-}
-function mxFade(to,tc){var g=mx.master.gain,c=mx.ctx,v=g.value;g.cancelScheduledValues(c.currentTime);g.setValueAtTime(v,c.currentTime);g.setTargetAtTime(to,c.currentTime,tc)}
-function musicOn(){
-  if(!AC)return;
-  try{
-    mxInit();
-    var c=mx.ctx;
-    if(c.state==='suspended')c.resume();
-    if(!mx.timer){mx.next=c.currentTime+.2;mx.timer=setInterval(mxTick,500);mxTick()}
-    mxFade(MODE==="online"?.2:.6,1.5);
-  }catch(err){}
-}
-function musicOff(){
-  if(!mx)return;
-  var c=mx.ctx;
-  mxFade(0,.25);
-  clearInterval(mx.timer);mx.timer=null;
-}
-function toggleMusic(){
-  S.music=!S.music;save();
-  if(S.music)musicOn();else musicOff();
-  document.querySelectorAll('.mb:not(.vb):not(.ob)').forEach(function(b){
-    b.setAttribute('aria-pressed',String(S.music));
-    b.setAttribute('aria-label',t(S.music?'musicOn':'musicOff'));
-    b.textContent=S.music?'🎵':'🔇';
-  });
-}
-document.addEventListener('visibilitychange',function(){
-  if(!mx)return;
-  if(document.hidden){mx.ctx.suspend()}else if(S.music){mx.ctx.resume()}
-});
 if(window.__LUDORIA_TEST)window.__ludoria={st:function(){return ST},mode:function(){return MODE},room:function(){return ROOM},lob:function(){return LOB}};
 home();
 })();
