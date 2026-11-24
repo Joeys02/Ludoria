@@ -186,6 +186,7 @@ body{margin:0}
 <script src="config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
 (function(){
 'use strict';
@@ -256,22 +257,22 @@ function aiScore(players,me,m){
 var L={
   de:{tag:'Würfeln, ärgern, gewinnen',howMany:'Wie viele spielen?',humans:'Davon Menschen',names:'Namen und Figuren',human:'Mensch',cpu:'Computer',
     boardH:'Spielbrett',diceH:'Würfel',play:'Spiel starten',roll:'Würfeln',turn:'{n} ist dran',rolled:'{n} würfelt eine {r}.',
-    choose:'Tippe auf eine leuchtende Figur.',only:'Nur ein Zug möglich.',noMove:'Kein Zug möglich.',tries:'Noch {k}x würfeln für eine Sechs.',
+    choose:'Tippe auf eine leuchtende Figur.',only:'Nur ein Zug möglich. Tippe auf die leuchtende Figur.',noMove:'Kein Zug möglich.',tries:'Noch {k}x würfeln für eine Sechs.',
     again:'Eine Sechs! Nochmal würfeln.',kick:'{a} wirft {b} raus!',win:'{n} hat gewonnen!',replay:'Nochmal spielen',menu:'Zum Menü',
     leave:'Spiel verlassen?',leaveSub:'Der Spielstand geht verloren.',stay:'Weiterspielen',leaveBtn:'Verlassen',chooseEmoji:'Figur wählen',
-    player:'Spieler {n}',soon:'Online mit Freunden und Sprachchat kommen als Nächstes.',reactH:'Reaktionen',back:'Zurück',questsH:'Aufgaben',online:'Online mit Familie',offlineH:'Am selben Handy oder gegen den Computer',yourName:'Dein Name',createRoom:'Raum erstellen',joinRoom:'Beitreten',codeLabel:'Raumcode',invite:'Per WhatsApp einladen',copyLink:'Link kopieren',linkCopied:'Link kopiert.',waitHost:'Warte, bis der Host das Spiel startet.',botsLbl:'Computer-Spieler',roomPlayers:'Im Raum',hostTag:'Host',needTwo:'Es braucht 2 bis 4 Spieler.',roomNotFound:'Diesen Raum gibt es nicht.',gameRunning:'Dort läuft schon ein Spiel.',roomFull:'Der Raum ist voll.',notSetup:'Online ist noch nicht eingerichtet. Siehe ANLEITUNG.md.',micDenied:'Kein Mikrofon. Erlaube es im Browser und tippe auf den Mikrofon-Knopf.',netErr:'Keine Verbindung. Versuche es nochmal.',newRound:'Neue Runde',voiceOn:'Mikrofon ausschalten',voiceOff:'Mikrofon einschalten',inviteText:'Komm in mein Ludoria-Spiel! Raumcode: {c} {u}',stats:'Partien {g} · Siege {w} · Rausgeworfen {k}',rewardLbl:'Belohnung',done:'Geschafft',boardWord:'Brett',diceWord:'Würfel',
+    player:'Spieler {n}',soon:'Online mit Freunden und Sprachchat kommen als Nächstes.',reactH:'Reaktionen',back:'Zurück',questsH:'Aufgaben',online:'Online mit Familie',offlineH:'Am selben Handy oder gegen den Computer',yourName:'Dein Name',createRoom:'Raum erstellen',joinRoom:'Beitreten',codeLabel:'Raumcode',invite:'Per WhatsApp einladen',copyLink:'Link kopieren',linkCopied:'Link kopiert.',waitHost:'Warte, bis der Host das Spiel startet.',botsLbl:'Computer-Spieler',roomPlayers:'Im Raum',hostTag:'Host',needTwo:'Es braucht 2 bis 4 Spieler.',roomNotFound:'Diesen Raum gibt es nicht.',gameRunning:'Dort läuft schon ein Spiel.',roomFull:'Der Raum ist voll.',notSetup:'Online ist noch nicht eingerichtet. Siehe ANLEITUNG.md.',micDenied:'Kein Mikrofon. Erlaube es im Browser und tippe auf den Mikrofon-Knopf.',netErr:'Keine Verbindung. Versuche es nochmal.',newRound:'Neue Runde',voiceOn:'Mikrofon ausschalten',voiceOff:'Mikrofon einschalten',routeSpk:'Ton über Lautsprecher',routeEar:'Ton über Hörer',inviteText:'Komm in mein Ludoria-Spiel! Raumcode: {c} {u}',stats:'Partien {g} · Siege {w} · Rausgeworfen {k}',rewardLbl:'Belohnung',done:'Geschafft',boardWord:'Brett',diceWord:'Würfel',
     quest:'Aufgabe geschafft! Neu: {x}',lockedMsg:'Gesperrt. Aufgabe: {q}',newUnlock:'Neu freigeschaltet',musicOn:'Musik ausschalten',musicOff:'Musik einschalten',
     q_games:'Spiele {n} Partien',q_wins1:'Gewinne 1 Partie',q_wins:'Gewinne {n} Partien',q_kicks:'Wirf {n} Figuren raus',q_sixes:'Würfle {n} Sechsen',q_goals:'Bringe {n} Figuren ins Ziel',
-    b_classic:'Klassik',b_meadow:'Wiese',b_ocean:'Ozean',b_night:'Nachthimmel',d_classic:'Klassisch',d_candy:'Bonbon',d_night:'Nacht',d_gold:'Gold'},
+    b_classic:'Klassik',b_meadow:'Wiese',b_ocean:'Ozean',b_night:'Nachthimmel',b_wald:'Knallwald',d_classic:'Klassisch',d_candy:'Bonbon',d_night:'Nacht',d_gold:'Gold'},
   en:{tag:'Roll, bump, win',howMany:'How many players?',humans:'Of which human',names:'Names and tokens',human:'Human',cpu:'Computer',
     boardH:'Board',diceH:'Dice',play:'Start game',roll:'Roll',turn:"{n}'s turn",rolled:'{n} rolled a {r}.',
-    choose:'Tap a glowing piece.',only:'Only one move possible.',noMove:'No move possible.',tries:'{k} more rolls to get a six.',
+    choose:'Tap a glowing piece.',only:'Only one move possible. Tap the glowing piece.',noMove:'No move possible.',tries:'{k} more rolls to get a six.',
     again:'A six! Roll again.',kick:'{a} bumps {b} out!',win:'{n} wins!',replay:'Play again',menu:'Back to menu',
     leave:'Leave the game?',leaveSub:'Your progress will be lost.',stay:'Keep playing',leaveBtn:'Leave',chooseEmoji:'Choose token',
-    player:'Player {n}',soon:'Online play with friends and voice chat are coming next.',reactH:'Reactions',back:'Back',questsH:'Quests',online:'Online with family',offlineH:'Same phone or against the computer',yourName:'Your name',createRoom:'Create room',joinRoom:'Join',codeLabel:'Room code',invite:'Invite via WhatsApp',copyLink:'Copy link',linkCopied:'Link copied.',waitHost:'Waiting for the host to start the game.',botsLbl:'Computer players',roomPlayers:'In the room',hostTag:'Host',needTwo:'You need 2 to 4 players.',roomNotFound:'That room does not exist.',gameRunning:'A game is already running there.',roomFull:'The room is full.',notSetup:'Online is not set up yet. See ANLEITUNG.md.',micDenied:'No microphone. Allow it in your browser and tap the microphone button.',netErr:'No connection. Please try again.',newRound:'New round',voiceOn:'Turn microphone off',voiceOff:'Turn microphone on',inviteText:'Join my Ludoria game! Room code: {c} {u}',stats:'Games {g} · Wins {w} · Bumped {k}',rewardLbl:'Reward',done:'Done',boardWord:'Board',diceWord:'Dice',
+    player:'Player {n}',soon:'Online play with friends and voice chat are coming next.',reactH:'Reactions',back:'Back',questsH:'Quests',online:'Online with family',offlineH:'Same phone or against the computer',yourName:'Your name',createRoom:'Create room',joinRoom:'Join',codeLabel:'Room code',invite:'Invite via WhatsApp',copyLink:'Copy link',linkCopied:'Link copied.',waitHost:'Waiting for the host to start the game.',botsLbl:'Computer players',roomPlayers:'In the room',hostTag:'Host',needTwo:'You need 2 to 4 players.',roomNotFound:'That room does not exist.',gameRunning:'A game is already running there.',roomFull:'The room is full.',notSetup:'Online is not set up yet. See ANLEITUNG.md.',micDenied:'No microphone. Allow it in your browser and tap the microphone button.',netErr:'No connection. Please try again.',newRound:'New round',voiceOn:'Turn microphone off',voiceOff:'Turn microphone on',routeSpk:'Sound via speaker',routeEar:'Sound via earpiece',inviteText:'Join my Ludoria game! Room code: {c} {u}',stats:'Games {g} · Wins {w} · Bumped {k}',rewardLbl:'Reward',done:'Done',boardWord:'Board',diceWord:'Dice',
     quest:'Quest complete! New: {x}',lockedMsg:'Locked. Quest: {q}',newUnlock:'Newly unlocked',musicOn:'Turn music off',musicOff:'Turn music on',
     q_games:'Play {n} games',q_wins1:'Win 1 game',q_wins:'Win {n} games',q_kicks:'Bump out {n} pieces',q_sixes:'Roll {n} sixes',q_goals:'Get {n} pieces home',
-    b_classic:'Classic',b_meadow:'Meadow',b_ocean:'Ocean',b_night:'Night sky',d_classic:'Classic',d_candy:'Candy',d_night:'Night',d_gold:'Gold'}
+    b_classic:'Classic',b_meadow:'Meadow',b_ocean:'Ocean',b_night:'Night sky',b_wald:'Bang forest',d_classic:'Classic',d_candy:'Candy',d_night:'Night',d_gold:'Gold'}
 };
 var COLORS={de:['Rot','Blau','Gelb','Grün'],en:['Red','Blue','Yellow','Green']};
 var CPU_NAMES=['Luna','Max','Pixel','Mochi'];
@@ -281,6 +282,7 @@ var BOARDS={
   classic:{bg:'#EBD3A5',frame:'#8A6540',track:'#FFF8EA',line:'#8A6540',pc:['#E85D5D','#5B8DEF','#F2C94C','#5CBF7A']},
   meadow:{bg:'#BFE6A8',frame:'#5E9B63',track:'#FFFEF5',line:'#5E9B63',pc:['#F08A8A','#78A9F0','#F5D36B','#7ACB92']},
   ocean:{bg:'#A9DBF2',frame:'#3B87B5',track:'#F5FCFF',line:'#3B87B5',pc:['#F0707F','#4F86E8','#F6C95A','#4FC9A0']},
+  wald:{style:'wald',bg:'#2EC6CC',frame:'#FF7A45',track:'#FFE8B5',line:'#2B1740',pc:['#FF4E42','#2F7BFF','#FFC400','#22BF4C']},
   night:{bg:'#2A2756',frame:'#6C63C9',track:'#46418A',line:'#8D86E8',pc:['#FF6B8B','#4FC3F7','#FFD54F','#69E0A0']}
 };
 var DICE=['classic','candy','night','gold'];
@@ -308,7 +310,7 @@ var QUESTS=[
   {id:'q6',stat:'wins',n:5,kind:'dice',reward:'gold'}
 ];
 function isUnlocked(kind,k){
-  if(k==='classic')return true;
+  if(k==='classic'||k==='wald')return true;
   return QUESTS.some(function(q){return q.kind===kind&&q.reward===k&&S.done.indexOf(q.id)>=0});
 }
 function questFor(kind,k){return QUESTS.filter(function(q){return q.kind===kind&&q.reward===k})[0]}
@@ -369,7 +371,7 @@ function showDice(v){
 var G=null,gid=0,ST=null,MODE='local',REF=null,LST=[],LOB={},SET={},PRES={},ROOM={code:null,host:null};
 var tmr=null,tick=null,lastChange=0,seenReact,builtGid=null,overSeen=null,lastFace=1,db=null;
 var CFG=window.LUDORIA_CONFIG||{};
-var V={on:false,stream:null,track:null,mine:null,lvl:null,t:0,refs:[],peersInfo:{},muted:false,err:false,speaking:{}};
+var V={route:'web',on:false,stream:null,track:null,mine:null,lvl:null,t:0,refs:[],peersInfo:{},muted:false,err:false,speaking:{}};
 function ph(v){return !v||/DEINE|YOUR|XXXX/i.test(String(v))}
 function onlineReady(){return !!(window.firebase&&CFG.firebase&&!ph(CFG.firebase.databaseURL)&&!ph(CFG.firebase.apiKey))}
 function voiceReady(){return !!(window.RTCPeerConnection&&window.navigator&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)}
@@ -402,7 +404,8 @@ function segHTML(act,vals,cur,fn){
 }
 function voiceBtn(){
   if(MODE!=='online'||!voiceReady())return '';
-  return '<button class="mb vb" data-act="voice" aria-pressed="'+(!V.muted&&!V.err)+'" aria-label="'+t(V.muted?'voiceOff':'voiceOn')+'">'+(V.err?'🚫':V.muted?'🤫':'🎙️')+'</button>';
+  return '<button class="mb vb" data-act="voice" aria-pressed="'+(!V.muted&&!V.err)+'" aria-label="'+t(V.muted?'voiceOff':'voiceOn')+'">'+(V.err?'🚫':V.muted?'🤫':'🎙️')+'</button>'+
+    '<button class="mb ob" data-act="vout" aria-label="'+t(V.route==='web'?'routeSpk':'routeEar')+'">'+(V.route==='web'?'🔊':'📞')+'</button>';
 }
 function stopLoops(){clearTimeout(tmr);tmr=null;if(tick){clearInterval(tick);tick=null}}
 
@@ -441,30 +444,44 @@ function home(){
 
 /* ---------- Räume (Firebase) ---------- */
 function genCode(){var a='ABCDEFGHJKLMNPQRSTUVWXYZ',s='';for(var i=0;i<4;i++)s+=a.charAt(Math.floor(Math.random()*a.length));return s}
+function ensureAuth(){
+  var f=window.firebase;
+  if(!f||!f.auth)return Promise.resolve();
+  getDb();
+  return f.auth().signInAnonymously().then(function(c){
+    var u=c&&c.user&&c.user.uid;
+    if(u&&ME.cid!==u){ME.cid=u;saveMe()}
+  });
+}
 function createRoom(){
   if(!onlineReady())return;
   var d,code=genCode(),n=0;
   try{d=getDb()}catch(e){toast(t('netErr'));return}
-  (function attempt(){
-    d.ref('rooms/'+code).once('value').then(function(s){
-      if(s.exists()&&n++<6){code=genCode();return attempt()}
-      return d.ref('rooms/'+code).set({host:ME.cid,created:Date.now(),settings:{board:S.board,dice:S.dice,bots:0}}).then(function(){enterRoom(code)});
-    }).catch(function(){toast(t('netErr'))});
-  })();
+  ensureAuth().then(function(){
+    (function attempt(){
+      d.ref('rooms/'+code+'/host').once('value').then(function(s){
+        if(s.exists()&&n++<6){code=genCode();return attempt()}
+        return d.ref('rooms/'+code).set({host:ME.cid,created:Date.now(),settings:{board:S.board,dice:S.dice,bots:0}}).then(function(){enterRoom(code)});
+      }).catch(function(){toast(t('netErr'))});
+    })();
+  }).catch(function(){toast(t('netErr'))});
 }
 function joinRoom(){
   if(!onlineReady())return;
   var el=$('#joincode'),code=el?el.value.toUpperCase().replace(/[^A-Z]/g,''):'';
   if(code.length!==4){toast(t('roomNotFound'));return}
   var d;try{d=getDb()}catch(e){toast(t('netErr'));return}
-  d.ref('rooms/'+code).once('value').then(function(s){
-    var r=s.val();
-    if(!r){toast(t('roomNotFound'));return}
-    if(r.state){
-      var pls=r.state.players||[],list=Array.isArray(pls)?pls:Object.keys(pls).map(function(k){return pls[k]});
+  var base='rooms/'+code;
+  ensureAuth().then(function(){
+    return Promise.all([d.ref(base+'/host').once('value'),d.ref(base+'/lobby/players').once('value'),d.ref(base+'/state/players').once('value')]);
+  }).then(function(rs){
+    if(!rs[0].exists()){toast(t('roomNotFound'));return}
+    var sp=rs[2].val();
+    if(sp){
+      var list=Array.isArray(sp)?sp:Object.keys(sp).map(function(k){return sp[k]});
       var mine=list.some(function(p){return p&&p.cid===ME.cid});
       if(!mine){toast(t('gameRunning'));return}
-    }else if(Object.keys((r.lobby&&r.lobby.players)||{}).filter(function(k){return k!==ME.cid}).length>=4){toast(t('roomFull'));return}
+    }else if(Object.keys(rs[1].val()||{}).filter(function(k){return k!==ME.cid}).length>=4){toast(t('roomFull'));return}
     enterRoom(code);
   }).catch(function(){toast(t('netErr'))});
 }
@@ -492,7 +509,7 @@ function enterRoom(code){
     if(!s.val())return;
     var p=REF.child('presence/'+ME.cid);p.set(true);p.onDisconnect().remove();
     var l=REF.child('lobby/players/'+ME.cid);
-    l.set({name:myName(),emoji:ME.emoji,vuid:ME.vuid,t:Date.now()});l.onDisconnect().remove();
+    l.set({name:myName().slice(0,24),emoji:ME.emoji,vuid:ME.vuid,t:Date.now()});l.onDisconnect().remove();
   });
   LST.push(c);
   if(window.location&&window.location.hash){try{window.history.replaceState(null,'',window.location.pathname)}catch(e){}}
@@ -595,7 +612,6 @@ function schedule(){
     case 'rolled':
       if(ST.moves.length===0)go(noMove,1100);
       else if(bot)go(botMove,800);
-      else if(ST.moves.length===1){var only=ST.moves[0];go(function(){doMove(only)},700)}
       break;
     case 'moved':go(afterMove,ST.kicked!=null?1300:500);break;
   }
@@ -707,8 +723,83 @@ function fxDoor(c){
   d.classList.add('open');creak();
   setTimeout(function(){d.classList.remove('open')},1200);
 }
+/* ---------- Spielwelt "Knallwald" (nur Darstellung) ---------- */
+var WALD_INK='#2B1740';
+function waldShade(hex,f){var n=parseInt(hex.slice(1),16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  function h(v){v=Math.max(0,Math.min(255,Math.round(v*f)));return (v<16?'0':'')+v.toString(16)}return '#'+h(r)+h(g)+h(b)}
+function waldFig(col,emoji){
+  var dk=waldShade(col,.72),I=WALD_INK;
+  return '<g class="fig"><ellipse cy="17" rx="10" ry="3.2" fill="#0A4A55" fill-opacity=".3"/>'+
+    '<rect x="-6" y="6.5" width="4.6" height="9" rx="2" fill="'+dk+'" stroke="'+I+'" stroke-width="1.1"/><ellipse cx="-4.4" cy="15.6" rx="4.6" ry="2.6" fill="#fff" stroke="'+I+'" stroke-width="1.1"/>'+
+    '<g transform="translate(3.6,6.5)"><g class="legK"><rect x="-2.3" y="0" width="4.6" height="9" rx="2" fill="'+dk+'" stroke="'+I+'" stroke-width="1.1"/><ellipse cx="0.4" cy="9.1" rx="4.8" ry="2.6" fill="#fff" stroke="'+I+'" stroke-width="1.1"/></g></g>'+
+    '<circle cx="-9.2" cy="1.5" r="3.3" fill="#FFD9B3" stroke="'+I+'" stroke-width="1.1"/><circle cx="9.2" cy="1.5" r="3.3" fill="#FFD9B3" stroke="'+I+'" stroke-width="1.1"/>'+
+    '<path d="M-8.4,-4C-8.4,-2 -9,5 -7.4,9.2L7.4,9.2C9,5 8.4,-2 8.4,-4Z" fill="'+col+'" stroke="'+I+'" stroke-width="1.3" stroke-linejoin="round"/>'+
+    '<text text-anchor="middle" dominant-baseline="central" font-size="9" y="3">'+emoji+'</text>'+
+    '<circle cy="-9" r="8.4" fill="#FFD9B3" stroke="'+I+'" stroke-width="1.3"/><circle cx="-5" cy="-6" r="1.6" fill="#FF8FA8" opacity=".7"/><circle cx="5" cy="-6" r="1.6" fill="#FF8FA8" opacity=".7"/>'+
+    '<ellipse cx="-3" cy="-9.4" rx="2.3" ry="2.9" fill="#fff" stroke="'+I+'" stroke-width=".8"/><ellipse cx="3" cy="-9.4" rx="2.3" ry="2.9" fill="#fff" stroke="'+I+'" stroke-width=".8"/>'+
+    '<circle cx="-2.6" cy="-9" r="1.3" fill="'+I+'"/><circle cx="3.4" cy="-9" r="1.3" fill="'+I+'"/>'+
+    '<path d="M-3,-4.6Q0,-1.8 3,-4.6Z" fill="#fff" stroke="'+I+'" stroke-width=".9" stroke-linejoin="round"/>'+
+    '<path d="M-8.7,-10C-8.7,-19 8.7,-19 8.7,-10C4,-13 -4,-13 -8.7,-10Z" fill="'+col+'" stroke="'+I+'" stroke-width="1.3" stroke-linejoin="round"/><circle cy="-18.4" r="2.6" fill="#fff" stroke="'+I+'" stroke-width="1"/></g>';
+}
+var WALD_CACHE={};
+function waldSVG(B){
+  var key=B.pc.join(),I=WALD_INK,o='',c,i,k,xy;
+  if(WALD_CACHE[key])return WALD_CACHE[key];
+  function ring(shapes,sw){return shapes.map(function(s){return s.replace('/>',' fill="'+I+'" stroke="'+I+'" stroke-width="'+sw+'" stroke-linejoin="round"/>')}).join('')}
+  function blob(shapes,fill,sw){return ring(shapes,sw||3.4)+shapes.map(function(s){return s.replace('/>',' fill="'+fill+'"/>')}).join('')}
+  function egg(x,y,rx,ry,f,rot){return '<g transform="translate('+x+','+y+') rotate('+(rot||0)+')"><ellipse rx="'+rx+'" ry="'+ry+'" fill="'+f+'" stroke="'+I+'" stroke-width="1.8"/><ellipse cx="'+(-rx*.35)+'" cy="'+(-ry*.4)+'" rx="'+(rx*.3)+'" ry="'+(ry*.17)+'" fill="#fff" opacity=".55"/><circle cx="'+(rx*.4)+'" cy="'+(ry*.1)+'" r="'+(rx*.13)+'" fill="#FFD84D"/><circle cx="'+(-rx*.3)+'" cy="'+(ry*.45)+'" r="'+(rx*.1)+'" fill="#FFD84D"/></g>'}
+  function tree(x,y,s,cap){return '<g transform="translate('+x+','+y+') scale('+s+')"><path d="M-6,0C-5,-14 -3,-22 -4,-32L4,-32C3,-22 5,-14 6,0Z" fill="#F26A2E" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/><path d="M-1,-2C-1,-12 0,-22 0,-30" stroke="#FFC08A" stroke-width="1.6" fill="none" stroke-linecap="round"/>'+
+    blob(['<circle cx="-11" cy="-40" r="12"/>','<circle cx="11" cy="-42" r="13"/>','<circle cx="0" cy="-50" r="14"/>'],cap,3.6)+
+    '<ellipse cx="-6" cy="-56" rx="6" ry="2.8" fill="#fff" opacity=".6"/><circle cx="-12" cy="-38" r="2" fill="#E63E8E"/><circle cx="14" cy="-37" r="2" fill="#E63E8E"/><circle cx="6" cy="-47" r="1.8" fill="#fff"/></g>'}
+  function flower(x,y,col,s){var p='';for(var j=0;j<5;j++){var a=j*72*Math.PI/180;p+='<circle cx="'+(Math.sin(a)*4.4).toFixed(1)+'" cy="'+(-Math.cos(a)*4.4).toFixed(1)+'" r="3.4" fill="'+col+'" stroke="'+I+'" stroke-width="1"/>'}
+    return '<g transform="translate('+x+','+y+') scale('+(s||1)+')"><path d="M0,0L0,9" stroke="'+I+'" stroke-width="3" stroke-linecap="round"/><path d="M0,0L0,9" stroke="#2EB03A" stroke-width="1.6" stroke-linecap="round"/>'+p+'<circle r="2.6" fill="#FFE04D" stroke="'+I+'" stroke-width=".9"/></g>'}
+  function bush(x,y,r){return '<g transform="translate('+x+','+y+')">'+blob(['<circle cx="'+(-r*.7)+'" cy="2" r="'+(r*.75)+'"/>','<circle cx="'+(r*.7)+'" cy="2" r="'+(r*.75)+'"/>','<circle r="'+r+'"/>'],'#2FB347',3)+'<ellipse cx="'+(-r*.3)+'" cy="'+(-r*.5)+'" rx="'+(r*.35)+'" ry="'+(r*.18)+'" fill="#fff" opacity=".5"/></g>'}
+  function tuft(x,y){return '<path d="M'+x+','+y+'c-2,-6 -5,-8 -6,-12M'+x+','+y+'c0,-7 1,-10 1,-15M'+x+','+y+'c2,-6 5,-8 7,-11" stroke="'+I+'" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>'}
+  o+='<defs><pattern id="wht" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="4.5" cy="4.5" r="1.7" fill="#fff" opacity=".28"/></pattern><clipPath id="wcl"><rect x="12" y="12" width="436" height="436" rx="22"/></clipPath></defs>';
+  o+='<rect width="460" height="460" rx="32" fill="'+I+'"/><rect x="2" y="2" width="456" height="456" rx="30" fill="'+B.frame+'"/><rect x="10" y="10" width="440" height="440" rx="24" fill="'+I+'"/><g clip-path="url(#wcl)"><rect x="12" y="12" width="436" height="436" fill="'+B.bg+'"/><rect x="12" y="12" width="436" height="436" fill="url(#wht)"/>';
+  o+='<rect x="164" y="2" width="132" height="456" rx="26" fill="#FF8A55" stroke="'+I+'" stroke-width="3"/><rect x="2" y="164" width="456" height="132" rx="26" fill="#FF8A55" stroke="'+I+'" stroke-width="3"/><rect x="168" y="12" width="124" height="436" fill="#FF8A55"/><rect x="12" y="168" width="436" height="124" fill="#FF8A55"/>';
+  var capc=['#FFC21A','#FF7A3D'],eggc=['#E45AA6','#14A9B4','#7C3FD6','#14A9B4'],eggd=['#7C3FD6','#E45AA6','#E45AA6','#7C3FD6'],flc=['#FF5FA2','#FFE04D','#FF8A3D','#B77CFF'],fl2=['#FFE04D','#FF5FA2','#fff','#FF8A3D'],TP=[[140,78],[326,160],[330,366],[132,372]];
+  function rp(q,x,y){var t=90*q*Math.PI/180,dx=x-230,dy=y-230;return [230+dx*Math.cos(t)-dy*Math.sin(t),230+dx*Math.sin(t)+dy*Math.cos(t)]}
+  for(c=0;c<4;c++){
+    o+='<g transform="rotate('+(90*c)+' 230 230)"><path d="M16,24C16,16 24,14 34,14L132,14C150,14 158,24 158,40L158,126C158,150 148,160 128,160L36,160C22,160 16,152 16,138Z" fill="#2E9E2F" stroke="'+I+'" stroke-width="3"/><path d="M16,18C16,10 24,8 34,8L132,8C150,8 158,18 158,34L158,120C158,144 148,154 128,154L36,154C22,154 16,146 16,132Z" fill="#5BC73F" stroke="'+I+'" stroke-width="3" stroke-linejoin="round"/><path d="M26,30C32,22 60,18 84,20" stroke="#fff" stroke-opacity=".5" stroke-width="4" fill="none" stroke-linecap="round"/></g>';
+    xy=rp(c,54,132);o+=egg(xy[0],xy[1],17,14,eggc[c],-8);
+    xy=rp(c,104,140);o+=egg(xy[0],xy[1],12,10,eggd[c],10);
+    xy=rp(c,118,124);o+=flower(xy[0],xy[1],flc[c]);
+    xy=rp(c,134,108);o+=flower(xy[0],xy[1],'#fff',.8);
+    xy=rp(c,34,104);o+=flower(xy[0],xy[1],fl2[c],.9);
+    xy=rp(c,142,144);o+=bush(xy[0],xy[1],8);
+    [[100,102],[30,148],[148,92]].forEach(function(u){var w=rp(c,u[0],u[1]);o+=tuft(w[0].toFixed(1),w[1].toFixed(1))});
+    o+=tree(TP[c][0],TP[c][1],.9,capc[c%2]);
+  }
+  o+='</g>';
+  function tile(x,y,fill){return '<rect x="'+(x-18)+'" y="'+(y-18)+'" width="36" height="36" rx="7" fill="'+fill+'" stroke="'+I+'" stroke-width="2"/>'}
+  function chev(x,y,ang,col){return '<path d="M-4,-5L2,0L-4,5" transform="translate('+x+','+y+') rotate('+ang+')" stroke="'+col+'" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'}
+  var corners=[[0,0],[9,0],[9,9],[0,9]];
+  for(c=0;c<4;c++){
+    var hx=corners[c][0]*40+50,hy=corners[c][1]*40+50,tf='translate('+hx+','+hy+') rotate('+(90*c)+')';
+    o+='<g transform="'+tf+'"><rect x="-41" y="-41" width="82" height="82" rx="18" fill="#FF9DBB" stroke="'+I+'" stroke-width="2.4"/><rect x="-31" y="-31" width="62" height="62" rx="10" fill="'+B.pc[c]+'" stroke="'+I+'" stroke-width="2"/>'+
+      '<g fill="#FFE2B8" stroke="'+I+'" stroke-width="1.4"><circle cx="-41" cy="-41" r="5.5"/><circle cx="41" cy="-41" r="5.5"/><circle cx="-41" cy="41" r="5.5"/><circle cx="41" cy="41" r="5.5"/></g></g>';
+    for(i=0;i<4;i++){xy=ctr(BASES[c][i]);o+='<ellipse cx="'+xy[0]+'" cy="'+(xy[1]+15)+'" rx="12" ry="4" fill="'+I+'" opacity=".22"/>'}
+    o+='<g transform="'+tf+'"><g transform="translate(-11,38)"><g class="door" id="door-'+c+'"><rect x="0" y="-7" width="22" height="14" rx="3" fill="#F26A2E" stroke="'+I+'" stroke-width="1.8"/><path d="M7,-6L7,6M14,-6L14,6" stroke="#B8441A" stroke-width="1"/><circle cx="18.5" cy="0" r="1.8" fill="#FFE04D" stroke="'+I+'" stroke-width=".8"/></g></g></g>';
+  }
+  for(i=0;i<40;i++){
+    xy=ctr(TRACK[i]);k=i%10;
+    if(k===0)o+=tile(xy[0],xy[1],B.pc[i/10])+'<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="9.5" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="3.8" fill="#fff"/>';
+    else o+=tile(xy[0],xy[1],B.track)+'<circle cx="'+(xy[0]-8)+'" cy="'+(xy[1]+6)+'" r="1.5" fill="#E2B76A"/><circle cx="'+(xy[0]+8)+'" cy="'+(xy[1]+8)+'" r="1.1" fill="#E2B76A"/><circle cx="'+(xy[0]+4)+'" cy="'+(xy[1]+1)+'" r="1" fill="#E2B76A"/>';
+  }
+  for(c=0;c<4;c++)for(i=0;i<4;i++){
+    xy=ctr(HOME[c][i]);var nx=i<3?ctr(HOME[c][i+1]):[230,230],ang=Math.atan2(nx[1]-xy[1],nx[0]-xy[0])*180/Math.PI;
+    o+=tile(xy[0],xy[1],B.pc[c])+chev(xy[0],xy[1],ang,'#fff');
+  }
+  o+='<circle cx="230" cy="230" r="34" fill="#FF8A55" stroke="'+I+'" stroke-width="3"/>'+
+    '<polygon points="208,208 252,208 230,230" fill="'+B.pc[1]+'" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/><polygon points="252,208 252,252 230,230" fill="'+B.pc[2]+'" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/><polygon points="252,252 208,252 230,230" fill="'+B.pc[3]+'" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/><polygon points="208,252 208,208 230,230" fill="'+B.pc[0]+'" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/>';
+  var sp='';for(i=0;i<10;i++){var a=-Math.PI/2+i*Math.PI/5,r=i%2?5.5:13;sp+=(230+Math.cos(a)*r).toFixed(1)+','+(230+Math.sin(a)*r).toFixed(1)+' '}
+  o+='<polygon points="'+sp+'" fill="#FFF04D" stroke="'+I+'" stroke-width="1.6" stroke-linejoin="round"/>';
+  return WALD_CACHE[key]=o;
+}
 function boardSVG(){
   var B=BOARDS[ST.board]||BOARDS.classic,o='',c,i,xy;
+  if(B.style==='wald'){o=waldSVG(B)}else{
   o+='<rect width="460" height="460" rx="26" fill="'+B.frame+'"/><rect x="8" y="8" width="444" height="444" rx="20" fill="'+B.bg+'"/>';
   var corners=[[0,0],[9,0],[9,9],[0,9]];
   for(c=0;c<4;c++){
@@ -732,11 +823,12 @@ function boardSVG(){
     o+='<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="15" fill="'+B.pc[c]+'" fill-opacity=".65" stroke="'+B.pc[c]+'" stroke-width="2.5"/>';
   }
   o+='<polygon points="210,210 250,210 230,230" fill="'+B.pc[1]+'"/><polygon points="250,210 250,250 230,230" fill="'+B.pc[2]+'"/><polygon points="250,250 210,250 230,230" fill="'+B.pc[3]+'"/><polygon points="210,250 210,210 230,230" fill="'+B.pc[0]+'"/>';
+  }
   ST.players.forEach(function(p){
     for(var pi=0;pi<4;pi++){
       var q=ctr(cellOf(p.c,p.pieces[pi],pi));
       o+='<g class="pc" id="pc-'+p.c+'-'+pi+'" data-c="'+p.c+'" data-pi="'+pi+'" data-s="'+p.pieces[pi]+'" style="transform:translate('+q[0]+'px,'+q[1]+'px)">'+
-        '<circle r="26" fill="transparent"/><circle class="ring" r="24"/>'+figSVG(B.pc[p.c],p.emoji)+'</g>';
+        '<circle r="26" fill="transparent"/><circle class="ring" r="24"/>'+(B.style==='wald'?waldFig:figSVG)(B.pc[p.c],p.emoji)+'</g>';
     }
   });
   return '<svg viewBox="0 0 460 460" id="board" role="group" aria-label="Ludoria">'+o+'</svg>';
@@ -860,6 +952,26 @@ function markSpeaking(){
     el.classList.toggle('speak',!!(u&&V.speaking[u]));
   });
 }
+function updOutBtn(){
+  document.querySelectorAll('.ob').forEach(function(b){
+    b.setAttribute('aria-label',t(V.route==='web'?'routeSpk':'routeEar'));
+    b.textContent=V.route==='web'?'🔊':'📞';
+  });
+}
+function applyRoute(p){
+  var web=V.route==='web';
+  if(web&&p.stream&&!p.node){
+    var c=actx();
+    if(c){try{p.node=c.createMediaStreamSource(p.stream);p.gn=c.createGain();p.node.connect(p.gn);p.gn.connect(c.destination)}catch(e){p.node=null;p.gn=null}}
+  }
+  if(p.gn)p.gn.gain.value=(web&&p.node)?1:0;
+  if(p.audio)p.audio.muted=!!(web&&p.node);
+}
+function voiceRoute(){
+  V.route=V.route==='web'?'el':'web';
+  Object.keys(VP).forEach(function(k){applyRoute(VP[k])});
+  updOutBtn();toast(t(V.route==='web'?'routeSpk':'routeEar'));
+}
 function updVoiceBtn(){
   document.querySelectorAll('.vb').forEach(function(b){
     b.setAttribute('aria-pressed',String(!V.muted&&!V.err));
@@ -898,6 +1010,7 @@ function closePeer(cid){
   try{p.pc.close()}catch(e){}
   if(p.audio){try{p.audio.srcObject=null;p.audio.remove()}catch(e){}}
   if(p.lvl)clearInterval(p.lvl);
+  try{if(p.gn)p.gn.disconnect();if(p.node)p.node.disconnect()}catch(e){}
   if(p.vuid)delete V.speaking[p.vuid];
 }
 function makePeer(cid,inf,init){
@@ -912,7 +1025,8 @@ function makePeer(cid,inf,init){
       var a=document.createElement('audio');a.autoplay=true;a.setAttribute('playsinline','');
       document.body.appendChild(a);p.audio=a;
     }
-    p.audio.srcObject=st;
+    p.audio.srcObject=st;p.stream=st;
+    applyRoute(p);
     try{var pr=p.audio.play();if(pr&&pr.catch)pr.catch(function(){})}catch(err){}
     if(!p.lvl)p.lvl=watchLevel(st,p.vuid);
   };
@@ -1044,6 +1158,7 @@ function handle(t0){
       break}
     case 'music':toggleMusic();break;
     case 'voice':voiceToggle();break;
+    case 'vout':voiceRoute();break;
     case 'start':startLocal();break;
     case 'create':createRoom();break;
     case 'join':joinRoom();break;
@@ -1093,6 +1208,7 @@ function copyText(txt){
 }
 document.addEventListener('click',function(e){
   if(S.music&&!(mx&&mx.timer))musicOn();
+  if(AUDIO_CTX&&AUDIO_CTX.state==='suspended'){try{AUDIO_CTX.resume()}catch(err){}}
   var pcEl=e.target.closest('.pc');
   if(pcEl){
     if(ST&&ST.phase==='rolled'){
@@ -1125,9 +1241,9 @@ var BARLEN=8;
 function mf(m){return 440*Math.pow(2,(m-69)/12)}
 function mxInit(){
   if(mx||!AC)return;
-  var ctx=new AC(),master=ctx.createGain(),bus=ctx.createGain(),lp=ctx.createBiquadFilter(),conv=ctx.createConvolver();
+  var ctx=new AC({latencyHint:'playback'}),master=ctx.createGain(),bus=ctx.createGain(),lp=ctx.createBiquadFilter(),conv=ctx.createConvolver();
   var comp=ctx.createDynamicsCompressor(),dry=ctx.createGain(),wet=ctx.createGain();
-  var len=Math.floor(ctx.sampleRate*3),buf=ctx.createBuffer(2,len,ctx.sampleRate);
+  var len=Math.floor(ctx.sampleRate*2),buf=ctx.createBuffer(2,len,ctx.sampleRate);
   for(var ch=0;ch<2;ch++){var d=buf.getChannelData(ch);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.4)}
   conv.buffer=buf;
   master.gain.value=0;lp.type='lowpass';lp.frequency.value=2600;dry.gain.value=.75;wet.gain.value=.55;
@@ -1175,6 +1291,7 @@ function mxTick(){
     mx.next+=BARLEN;mx.bar++;
   }
 }
+function mxFade(to,tc){var g=mx.master.gain,c=mx.ctx,v=g.value;g.cancelScheduledValues(c.currentTime);g.setValueAtTime(v,c.currentTime);g.setTargetAtTime(to,c.currentTime,tc)}
 function musicOn(){
   if(!AC)return;
   try{
@@ -1182,22 +1299,19 @@ function musicOn(){
     var c=mx.ctx;
     if(c.state==='suspended')c.resume();
     if(!mx.timer){mx.next=c.currentTime+.2;mx.timer=setInterval(mxTick,500);mxTick()}
-    mx.master.gain.cancelScheduledValues(c.currentTime);
-    mx.master.gain.setTargetAtTime(MODE==="online"?.2:.6,c.currentTime,1.5);
+    mxFade(MODE==="online"?.2:.6,1.5);
   }catch(err){}
 }
 function musicOff(){
   if(!mx)return;
   var c=mx.ctx;
-  mx.master.gain.cancelScheduledValues(c.currentTime);
-  mx.master.gain.setTargetAtTime(0,c.currentTime,.4);
+  mxFade(0,.25);
   clearInterval(mx.timer);mx.timer=null;
-  setTimeout(function(){if(!S.music&&mx&&mx.ctx.state==='running')mx.ctx.suspend()},1800);
 }
 function toggleMusic(){
   S.music=!S.music;save();
   if(S.music)musicOn();else musicOff();
-  document.querySelectorAll('.mb').forEach(function(b){
+  document.querySelectorAll('.mb:not(.vb):not(.ob)').forEach(function(b){
     b.setAttribute('aria-pressed',String(S.music));
     b.setAttribute('aria-label',t(S.music?'musicOn':'musicOff'));
     b.textContent=S.music?'🎵':'🔇';
