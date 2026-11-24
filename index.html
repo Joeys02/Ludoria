@@ -162,6 +162,8 @@ body{margin:0}
 .door.open{transform:rotate(-100deg)}
 @media (prefers-reduced-motion:reduce){.fig.hit,.fig.kick,.fig.kick .legK,.fig.hop,.pc.can .fig{animation:none}}
 
+.wleg{margin:6px auto 0;max-width:460px;font-size:11px;line-height:1.35;text-align:center;color:var(--muted,#9a96c4)}
+
 /* Sheets */
 .overlay{position:fixed;inset:0;background:rgba(15,12,40,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20}
 .sheet{width:100%;max-width:480px;max-height:82vh;overflow:auto;background:var(--surface);border-radius:24px 24px 0 0;
@@ -201,13 +203,14 @@ var BASES=[[[0,0],[1,0],[0,1],[1,1]],[[9,0],[10,0],[9,1],[10,1]],[[9,9],[10,9],[
 var SEATS={2:[0,2],3:[0,1,2],4:[0,1,2,3]};
 function tIdx(c,s){return (c*10+s)%40}
 function cellOf(c,s,pi){if(s<0)return BASES[c][pi];if(s<40)return TRACK[tIdx(c,s)];return HOME[c][s-40]}
-function legalMoves(pieces,r){
+function legalMoves(pieces,r,c,blk){
   var out=[],base=0,startOcc=false;
   pieces.forEach(function(s){if(s===-1)base++;if(s===0)startOcc=true});
   pieces.forEach(function(s,pi){
     var to;
     if(s===-1){if(r!==6)return;to=0}else{to=s+r;if(to>43)return}
     for(var oi=0;oi<pieces.length;oi++){if(oi!==pi&&pieces[oi]===to)return}
+    if(blk&&to<40&&blk.indexOf(tIdx(c,to))>=0)return;
     out.push({pi:pi,to:to});
   });
   if(r===6&&base>0&&!startOcc){
@@ -219,6 +222,34 @@ function legalMoves(pieces,r){
     if(mv.length)return mv;
   }
   return out;
+}
+/* Sonderfelder (nur Brett "Knallwald"): Feld k = Schritt s%10. 2 Rückenwind +3, 4 Glücksblume (nochmal würfeln),
+   5 Pilzschutz (nur eine Figur, niemand sonst darf darauf), 7 Portal +10 (bis Schritt 27), 8 Gegenwind -3. */
+function fieldFx(s){
+  var k=s%10;
+  if(s<0||s>39)return null;
+  if(k===2)return {t:'boost',d:3};
+  if(k===8)return {t:'back',d:-3};
+  if(k===7&&s<=27)return {t:'portal',d:10};
+  if(k===4)return {t:'flower'};
+  return null;
+}
+function pilzBlocked(players,me){
+  var out=[];
+  players.forEach(function(o){
+    if(o===me)return;
+    o.pieces.forEach(function(s){if(s>=0&&s<40&&s%10===5)out.push(tIdx(o.c,s))});
+  });
+  return out;
+}
+function fxPlan(players,me,mp,to){
+  var f=fieldFx(to);
+  if(!f)return null;
+  if(f.t==='flower')return {t:'flower'};
+  var tgt=to+f.d,i;
+  for(i=0;i<me.pieces.length;i++){if(i!==mp&&me.pieces[i]===tgt)return null}
+  if(pilzBlocked(players,me).indexOf(tIdx(me.c,tgt))>=0)return null;
+  return {t:f.t,pi:mp,to:tgt};
 }
 function danger(players,me,gi){
   var n=0;
@@ -258,7 +289,7 @@ var L={
   de:{tag:'Würfeln, ärgern, gewinnen',howMany:'Wie viele spielen?',humans:'Davon Menschen',names:'Namen und Figuren',human:'Mensch',cpu:'Computer',
     boardH:'Spielbrett',diceH:'Würfel',play:'Spiel starten',roll:'Würfeln',turn:'{n} ist dran',rolled:'{n} würfelt eine {r}.',
     choose:'Tippe auf eine leuchtende Figur.',only:'Nur ein Zug möglich. Tippe auf die leuchtende Figur.',noMove:'Kein Zug möglich.',tries:'Noch {k}x würfeln für eine Sechs.',
-    again:'Eine Sechs! Nochmal würfeln.',kick:'{a} wirft {b} raus!',win:'{n} hat gewonnen!',replay:'Nochmal spielen',menu:'Zum Menü',
+    again:'Eine Sechs! Nochmal würfeln.',againFlower:'Glücksblume! Nochmal würfeln.',fxBoost:'Rückenwind! 3 Felder vor.',fxBack:'Gegenwind! 3 Felder zurück.',fxPortal:'Portal! 10 Felder weiter.',fxFlower:'Glücksblume! Du darfst nochmal.',wleg:'<b>Sonderfelder:</b> ⏩ Rückenwind +3 · ⏪ Gegenwind −3 · 🍄 Pilz: sicher, nur 1 Figur · 🌀 Portal +10 · 🌼 Nochmal würfeln',kick:'{a} wirft {b} raus!',win:'{n} hat gewonnen!',replay:'Nochmal spielen',menu:'Zum Menü',
     leave:'Spiel verlassen?',leaveSub:'Der Spielstand geht verloren.',stay:'Weiterspielen',leaveBtn:'Verlassen',chooseEmoji:'Figur wählen',
     player:'Spieler {n}',soon:'Online mit Freunden und Sprachchat kommen als Nächstes.',reactH:'Reaktionen',back:'Zurück',questsH:'Aufgaben',online:'Online mit Familie',offlineH:'Am selben Handy oder gegen den Computer',yourName:'Dein Name',createRoom:'Raum erstellen',joinRoom:'Beitreten',codeLabel:'Raumcode',invite:'Per WhatsApp einladen',copyLink:'Link kopieren',linkCopied:'Link kopiert.',waitHost:'Warte, bis der Host das Spiel startet.',botsLbl:'Computer-Spieler',roomPlayers:'Im Raum',hostTag:'Host',needTwo:'Es braucht 2 bis 4 Spieler.',roomNotFound:'Diesen Raum gibt es nicht.',gameRunning:'Dort läuft schon ein Spiel.',roomFull:'Der Raum ist voll.',notSetup:'Online ist noch nicht eingerichtet. Siehe ANLEITUNG.md.',micDenied:'Kein Mikrofon. Erlaube es im Browser und tippe auf den Mikrofon-Knopf.',netErr:'Keine Verbindung. Versuche es nochmal.',newRound:'Neue Runde',voiceOn:'Mikrofon ausschalten',voiceOff:'Mikrofon einschalten',routeSpk:'Ton über Lautsprecher',routeEar:'Ton über Hörer',inviteText:'Komm in mein Ludoria-Spiel! Raumcode: {c} {u}',stats:'Partien {g} · Siege {w} · Rausgeworfen {k}',rewardLbl:'Belohnung',done:'Geschafft',boardWord:'Brett',diceWord:'Würfel',
     quest:'Aufgabe geschafft! Neu: {x}',lockedMsg:'Gesperrt. Aufgabe: {q}',newUnlock:'Neu freigeschaltet',musicOn:'Musik ausschalten',musicOff:'Musik einschalten',
@@ -267,7 +298,7 @@ var L={
   en:{tag:'Roll, bump, win',howMany:'How many players?',humans:'Of which human',names:'Names and tokens',human:'Human',cpu:'Computer',
     boardH:'Board',diceH:'Dice',play:'Start game',roll:'Roll',turn:"{n}'s turn",rolled:'{n} rolled a {r}.',
     choose:'Tap a glowing piece.',only:'Only one move possible. Tap the glowing piece.',noMove:'No move possible.',tries:'{k} more rolls to get a six.',
-    again:'A six! Roll again.',kick:'{a} bumps {b} out!',win:'{n} wins!',replay:'Play again',menu:'Back to menu',
+    again:'A six! Roll again.',againFlower:'Lucky flower! Roll again.',fxBoost:'Tailwind! 3 steps forward.',fxBack:'Headwind! 3 steps back.',fxPortal:'Portal! 10 steps ahead.',fxFlower:'Lucky flower! Roll again.',wleg:'<b>Special fields:</b> ⏩ Tailwind +3 · ⏪ Headwind −3 · 🍄 Mushroom: safe, 1 piece only · 🌀 Portal +10 · 🌼 Roll again',kick:'{a} bumps {b} out!',win:'{n} wins!',replay:'Play again',menu:'Back to menu',
     leave:'Leave the game?',leaveSub:'Your progress will be lost.',stay:'Keep playing',leaveBtn:'Leave',chooseEmoji:'Choose token',
     player:'Player {n}',soon:'Online play with friends and voice chat are coming next.',reactH:'Reactions',back:'Back',questsH:'Quests',online:'Online with family',offlineH:'Same phone or against the computer',yourName:'Your name',createRoom:'Create room',joinRoom:'Join',codeLabel:'Room code',invite:'Invite via WhatsApp',copyLink:'Copy link',linkCopied:'Link copied.',waitHost:'Waiting for the host to start the game.',botsLbl:'Computer players',roomPlayers:'In the room',hostTag:'Host',needTwo:'You need 2 to 4 players.',roomNotFound:'That room does not exist.',gameRunning:'A game is already running there.',roomFull:'The room is full.',notSetup:'Online is not set up yet. See ANLEITUNG.md.',micDenied:'No microphone. Allow it in your browser and tap the microphone button.',netErr:'No connection. Please try again.',newRound:'New round',voiceOn:'Turn microphone off',voiceOff:'Turn microphone on',routeSpk:'Sound via speaker',routeEar:'Sound via earpiece',inviteText:'Join my Ludoria game! Room code: {c} {u}',stats:'Games {g} · Wins {w} · Bumped {k}',rewardLbl:'Reward',done:'Done',boardWord:'Board',diceWord:'Dice',
     quest:'Quest complete! New: {x}',lockedMsg:'Locked. Quest: {q}',newUnlock:'Newly unlocked',musicOn:'Turn music off',musicOff:'Turn music on',
@@ -578,7 +609,7 @@ function norm(s){
   s.players=arr(s.players).map(function(p){p.pieces=arr(p.pieces);p.tries=p.tries||0;return p});
   s.moves=arr(s.moves);
   s.roll=s.roll||0;s.rv=s.rv||0;s.note=s.note||'';s.turn=s.turn||0;
-  s.kicked=s.kicked==null?null:s.kicked;s.winner=s.winner==null?null:s.winner;
+  s.fx=s.fx||null;s.kicked=s.kicked==null?null:s.kicked;s.winner=s.winner==null?null:s.winner;
   return s;
 }
 function onState(raw){
@@ -613,7 +644,10 @@ function schedule(){
       if(ST.moves.length===0)go(noMove,1100);
       else if(bot)go(botMove,800);
       break;
-    case 'moved':go(afterMove,ST.kicked!=null?1300:500);break;
+    case 'moved':
+      if(ST.fx&&ST.fx.to!=null&&!ST.fx.done)go(applyFx,1000);
+      else go(afterMove,ST.kicked!=null||(ST.fx&&ST.fx.done)?1300:(ST.fx?1100:500));
+      break;
   }
 }
 function doRoll(){
@@ -622,7 +656,7 @@ function doRoll(){
 }
 function finishRoll(){
   var p=ST.players[ST.turn],r=1+Math.floor(Math.random()*6);
-  var mv=legalMoves(p.pieces,r);
+  var mv=legalMoves(p.pieces,r,p.c,ST.board==='wald'?pilzBlocked(ST.players,p):null);
   if(isMyHuman(p)&&r===6)bump('sixes',1);
   if(!p.human&&r===6&&Math.random()<0.2)sendReact(ST.turn,pick(['😎','🔥','💪']));
   commit({phase:'rolled',roll:r,moves:mv});
@@ -654,8 +688,9 @@ function doMove(m){
     });
   }
   var won=p.pieces.every(function(s){return s>=40});
+  var fx=(!won&&ST.board==='wald'&&m.to<40)?fxPlan(pls,p,m.pi,m.to):null;
   if(isMyHuman(p)){if(kicked!=null)bump('kicks',1);if(from<40&&m.to>=40)bump('goals',1)}
-  commit({players:pls,phase:won?'over':'moved',kicked:kicked,winner:won?pi:null,moves:[]});
+  commit({players:pls,phase:won?'over':'moved',kicked:kicked,winner:won?pi:null,moves:[],fx:fx});
   if(kicked!=null){
     if(!pls[kicked].human)sendReact(kicked,pick(['😡','😭','😱','🙈']));
     if(!p.human&&Math.random()<0.7)setTimeout(function(){sendReact(pi,pick(['😂','😎','🙈','💪']))},350);
@@ -665,11 +700,28 @@ function doMove(m){
     sendReact(pi,'🎉');
   }
 }
-function afterMove(){nextTurn(ST.roll===6)}
-function nextTurn(extra){
+function applyFx(){
+  var fx=ST.fx;
+  if(!ST||ST.phase!=='moved'||!fx||fx.to==null||fx.done)return;
+  var pi=ST.turn,pls=copyPlayers(),p=pls[pi],kicked=null;
+  p.pieces[fx.pi]=fx.to;
+  var gi=tIdx(p.c,fx.to);
+  pls.forEach(function(o,oi){
+    if(oi===pi)return;
+    o.pieces=o.pieces.map(function(s){if(s>=0&&s<40&&tIdx(o.c,s)===gi){kicked=oi;return -1}return s});
+  });
+  if(isMyHuman(p)&&kicked!=null)bump('kicks',1);
+  commit({players:pls,kicked:kicked!=null?kicked:ST.kicked,fx:{t:fx.t,pi:fx.pi,to:fx.to,done:true}});
+  if(kicked!=null&&!pls[kicked].human)sendReact(kicked,pick(['😡','😭','😱','🙈']));
+}
+function afterMove(){
+  var flower=!!(ST.fx&&ST.fx.t==='flower');
+  nextTurn(ST.roll===6||flower,flower&&ST.roll!==6?'flower':'');
+}
+function nextTurn(extra,note){
   var pls=copyPlayers(),nt=extra?ST.turn:(ST.turn+1)%pls.length;
   pls[nt].tries=0;
-  commit({players:pls,turn:nt,phase:'roll',note:extra?'again':'',moves:[],kicked:null});
+  commit({players:pls,turn:nt,phase:'roll',note:extra?(note||'again'):'',moves:[],kicked:null,fx:null});
 }
 
 /* ---------- Anzeige ---------- */
@@ -785,6 +837,12 @@ function waldSVG(B){
   for(i=0;i<40;i++){
     xy=ctr(TRACK[i]);k=i%10;
     if(k===0)o+=tile(xy[0],xy[1],B.pc[i/10])+'<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="9.5" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="3.8" fill="#fff"/>';
+    else if(k===2||k===8){var nx2=ctr(TRACK[(i+1)%40]),an=Math.atan2(nx2[1]-xy[1],nx2[0]-xy[0])*180/Math.PI;
+      o+=tile(xy[0],xy[1],k===2?'#22B24A':'#E02C9A')+'<g transform="translate('+xy[0]+','+(xy[1]-2)+') rotate('+(k===2?an:an+180)+')"><path d="M-9,-6L-1,0L-9,6M-1,-6L7,0L-1,6" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><text x="'+xy[0]+'" y="'+(xy[1]+13)+'" font-size="9" font-weight="900" fill="#fff" text-anchor="middle" font-family="Arial,sans-serif">'+(k===2?'+3':'\u22123')+'</text>'}
+    else if(k===4){var pt='',cs=['#FF5FA2','#FF8A3D','#B77CFF','#35C8E8','#FF5FA2'],j;for(j=0;j<5;j++){var aa=j*72*Math.PI/180;pt+='<circle cx="'+(xy[0]+Math.sin(aa)*6.2).toFixed(1)+'" cy="'+(xy[1]-Math.cos(aa)*6.2).toFixed(1)+'" r="5.2" fill="'+cs[j]+'" stroke="'+I+'" stroke-width="1"/>'}
+      o+=tile(xy[0],xy[1],'#FFC03A')+pt+'<circle cx="'+xy[0]+'" cy="'+xy[1]+'" r="4" fill="#FFE04D" stroke="'+I+'" stroke-width="1"/>'}
+    else if(k===5)o+=tile(xy[0],xy[1],'#17B3B0')+'<g transform="translate('+xy[0]+','+(xy[1]+1)+')"><rect x="-4" y="0" width="8" height="9" rx="3.5" fill="#FFF3D6" stroke="'+I+'" stroke-width="1.3"/><path d="M-11,1C-11,-12 11,-12 11,1Z" fill="#FF7A3D" stroke="'+I+'" stroke-width="1.5"/><circle cx="-4" cy="-5" r="2" fill="#fff"/><circle cx="3" cy="-7" r="1.6" fill="#fff"/><circle cx="6" cy="-2" r="1.4" fill="#fff"/></g>';
+    else if(k===7&&i%10===7)o+=tile(xy[0],xy[1],'#7A3BE0')+'<g transform="translate('+xy[0]+','+xy[1]+')"><path d="M-10,9L-10,-1C-10,-12 10,-12 10,-1L10,9Z" fill="#F26A2E" stroke="'+I+'" stroke-width="1.6"/><path d="M-5,9L-5,0C-5,-7 5,-7 5,0L5,9Z" fill="#3A0F6B"/><path d="M0,6C-3,5 -3,0 0,0C3,0 3,4 0,4" stroke="#E6D2FF" stroke-width="1.4" fill="none" stroke-linecap="round"/></g>';
     else o+=tile(xy[0],xy[1],B.track)+'<circle cx="'+(xy[0]-8)+'" cy="'+(xy[1]+6)+'" r="1.5" fill="#E2B76A"/><circle cx="'+(xy[0]+8)+'" cy="'+(xy[1]+8)+'" r="1.1" fill="#E2B76A"/><circle cx="'+(xy[0]+4)+'" cy="'+(xy[1]+1)+'" r="1" fill="#E2B76A"/>';
   }
   for(c=0;c<4;c++)for(i=0;i<4;i++){
@@ -842,7 +900,7 @@ function buildGame(){
   $('#app').innerHTML=
     '<div class="gh"><button class="ib" data-act="leave" aria-label="'+t('menu')+'">←</button><b>'+(MODE==='online'&&ROOM.code?ROOM.code:'Ludoria')+'</b><span class="hr">'+voiceBtn()+musicBtn()+'</span></div>'+
     '<div class="panels">'+panels+'</div>'+
-    '<div class="boardwrap">'+boardSVG()+'</div>'+
+    '<div class="boardwrap">'+boardSVG()+'</div>'+(B.style==='wald'?'<p class="wleg">'+t('wleg')+'</p>':'')+
     '<div class="ctrl"><div class="dicebox">'+diceHTML(lastFace,ST.dice||'classic','dice')+'</div><div><p id="status" aria-live="polite"></p><button class="btn" id="roll" data-act="roll">'+t('roll')+'</button></div></div>'+
     '<div class="reacts" aria-label="'+t('reactH')+'">'+reacts+'</div>';
   builtGid=ST.gid;
@@ -853,6 +911,7 @@ function statusText(){
   switch(ST.phase){
     case 'roll':
       if(ST.note==='again')return t('again');
+      if(ST.note==='flower')return t('againFlower');
       if(ST.note==='tries')return t('noMove')+' '+t('tries',{k:3-(cp.tries||0)});
       return t('turn',{n:n});
     case 'rolling':return t('turn',{n:n});
@@ -862,7 +921,11 @@ function statusText(){
       if(cp.human&&actorIsMe(cp))return s+' '+(ST.moves.length===1?t('only'):t('choose'));
       return s}
     case 'moved':
-      if(ST.kicked!=null)return t('kick',{a:n,b:ST.players[ST.kicked].name});
+      if(ST.kicked!=null&&(!ST.fx||ST.fx.done||ST.fx.to==null))return t('kick',{a:n,b:ST.players[ST.kicked].name});
+      if(ST.fx&&ST.fx.t==='boost')return t('fxBoost');
+      if(ST.fx&&ST.fx.t==='back')return t('fxBack');
+      if(ST.fx&&ST.fx.t==='portal')return t('fxPortal');
+      if(ST.fx&&ST.fx.t==='flower')return t('fxFlower');
       return t('rolled',{n:n,r:ST.roll});
     case 'over':return t('win',{n:ST.players[ST.winner].name});
   }
