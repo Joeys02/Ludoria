@@ -1063,9 +1063,6 @@ function boardSVG(){
   }
   o+='<polygon points="210,210 250,210 230,230" fill="'+B.pc[1]+'"/><polygon points="250,210 250,250 230,230" fill="'+B.pc[2]+'"/><polygon points="250,250 210,250 230,230" fill="'+B.pc[3]+'"/><polygon points="210,250 210,210 230,230" fill="'+B.pc[0]+'"/>';
   }
-  if(B.style==='wald'){o+='<g class="windfx" pointer-events="none" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round">'+
-    [[20,95,0],[60,170,1.1],[10,255,2.0],[40,330,.6],[70,410,2.7],[30,45,1.6],[90,215,3.0]].map(function(w){return '<path class="ws" style="animation-delay:-'+w[2]+'s" d="M'+w[0]+','+w[1]+' q50,-16 100,0 t80,-6 q26,0 30,12 q-4,10 -16,4"/>'}).join('')+'</g>'+
-    '<g pointer-events="none">'+[[40,120,0,'#FFE04D'],[30,200,.9,'#FF8A3D'],[20,290,1.8,'#fff'],[50,370,2.6,'#2FE26A'],[10,60,3.3,'#FF5FA2'],[60,250,4.1,'#FFE04D']].map(function(l){return '<g class="lf" style="animation-delay:-'+l[2]+'s;--y:'+l[1]+'px"><ellipse rx="7" ry="3.4" fill="'+l[3]+'" stroke="#2B1740" stroke-width="1.4"/></g>'}).join('')+'</g>'}
   ST.players.forEach(function(p){
     for(var pi=0;pi<4;pi++){
       var q=ctr(cellOf(p.c,p.pieces[pi],pi));
