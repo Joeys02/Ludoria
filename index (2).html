@@ -160,13 +160,11 @@ body{margin:0}
 @keyframes kick{0%{transform:rotate(0)}30%{transform:rotate(calc(var(--d,1)*30deg))}55%{transform:rotate(calc(var(--d,1)*-85deg))}100%{transform:rotate(0)}}
 .door{transition:transform .35s ease-out}
 .door.open{transform:rotate(-100deg)}
-@media (prefers-reduced-motion:reduce){.fig.hit,.fig.kick,.fig.kick .legK,.fig.hop,.pc.can .fig{animation:none}}
 
 .wleg{margin:6px auto 0;max-width:460px;font-size:11px;line-height:1.35;text-align:center;color:var(--muted,#9a96c4)}
 
 .oh{transform-box:fill-box;transform-origin:50% 100%;animation:ohpop 1.8s ease-out forwards;pointer-events:none}
 @keyframes ohpop{0%{opacity:0;transform:scale(.3)}10%{opacity:1;transform:scale(1.18)}20%{transform:scale(1)}78%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-8px)}}
-@media (prefers-reduced-motion:reduce){.oh{animation:none}}
 
 .pc .big{transform:translate(0,-8px) scale(1.62);transition:transform .3s}
 .pc[data-s="-1"] .big{transform:translate(0,-4px) scale(1.12)}
@@ -181,14 +179,15 @@ body{margin:0}
 .fig.stA .armB,.fig.stB .armA{animation:lfw .19s ease-in-out}.fig.stA .armA,.fig.stB .armB{animation:lbk .19s ease-in-out}
 @keyframes lfw{0%{transform:rotate(-28deg)}100%{transform:rotate(26deg)}}
 @keyframes lbk{0%{transform:rotate(26deg)}100%{transform:rotate(-28deg)}}
-@media (prefers-reduced-motion:reduce){.fig.walk,.fig.walk .limb{animation:none!important}}
 .pc .big{filter:drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1.2px #fff)}
-.fig .hat{transform-box:fill-box;transform-origin:45% 95%;animation:wind 2.6s ease-in-out infinite}
-@keyframes wind{0%,100%{transform:rotate(-6deg) skewX(-8deg)}30%{transform:rotate(14deg) skewX(12deg)}55%{transform:rotate(5deg) skewX(4deg)}80%{transform:rotate(18deg) skewX(15deg)}}
-@media (prefers-reduced-motion:reduce){.fig .hat{animation:none}}
-.ws{opacity:0;animation:gust 5.5s linear infinite}
-@keyframes gust{0%{transform:translateX(-120px);opacity:0}15%{opacity:.55}85%{opacity:.55}100%{transform:translateX(420px);opacity:0}}
-@media (prefers-reduced-motion:reduce){.ws{animation:none;opacity:0}}
+.fig .hat{transform-box:fill-box;transform-origin:45% 95%;animation:wind 1.9s ease-in-out infinite}
+@keyframes wind{0%,100%{transform:rotate(-14deg) skewX(-14deg)}30%{transform:rotate(26deg) skewX(20deg)}55%{transform:rotate(8deg) skewX(6deg)}80%{transform:rotate(32deg) skewX(24deg)}}
+.ws{opacity:0;animation:gust 3.6s linear infinite}
+@keyframes gust{0%{transform:translateX(-200px);opacity:0}12%{opacity:.9}88%{opacity:.9}100%{transform:translateX(520px);opacity:0}}
+.tr{transform-box:fill-box;transform-origin:50% 100%;animation:sway 2.4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(8deg)}}
+.lf{animation:leaf 4.6s linear infinite}
+@keyframes leaf{0%{transform:translate(-30px,var(--y,0)) rotate(0);opacity:0}10%{opacity:1}50%{transform:translate(240px,calc(var(--y,0) + 30px)) rotate(360deg)}90%{opacity:1}100%{transform:translate(500px,calc(var(--y,0) - 10px)) rotate(720deg);opacity:0}}
 
 /* Sheets */
 .overlay{position:fixed;inset:0;background:rgba(15,12,40,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20}
@@ -202,7 +201,6 @@ body{margin:0}
 .win .big{font:400 72px/1.2 var(--f-emoji)}
 .win h2{font-size:24px}
 .sheet .row2{display:flex;gap:10px;margin-top:14px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -799,7 +797,7 @@ function fireworks(){
     document.body.appendChild(cv);cx.scale(dpr,dpr);FWON=true;
     cv.style.background='rgba(15,12,40,0)';cv.style.transition='background .5s';
     setTimeout(function(){cv.style.background='rgba(15,12,40,.5)'},30);setTimeout(function(){cv.style.background='rgba(15,12,40,0)'},1500);
-    try{still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+
   }catch(err){FWON=false;return}
   var cols=['#FF4E42','#FFC400','#2FE26A','#4C9BFF','#FF5FA2','#35E0D0','#FFF3A0','#FF8A3D'];
   function burst(){
@@ -979,9 +977,9 @@ function waldSVG(B){
   function ring(shapes,sw){return shapes.map(function(s){return s.replace('/>',' fill="'+I+'" stroke="'+I+'" stroke-width="'+sw+'" stroke-linejoin="round"/>')}).join('')}
   function blob(shapes,fill,sw){return ring(shapes,sw||3.4)+shapes.map(function(s){return s.replace('/>',' fill="'+fill+'"/>')}).join('')}
   function egg(x,y,rx,ry,f,rot){return '<g transform="translate('+x+','+y+') rotate('+(rot||0)+')"><ellipse rx="'+rx+'" ry="'+ry+'" fill="'+f+'" stroke="'+I+'" stroke-width="1.8"/><ellipse cx="'+(-rx*.35)+'" cy="'+(-ry*.4)+'" rx="'+(rx*.3)+'" ry="'+(ry*.17)+'" fill="#fff" opacity=".55"/><circle cx="'+(rx*.4)+'" cy="'+(ry*.1)+'" r="'+(rx*.13)+'" fill="#FFD84D"/><circle cx="'+(-rx*.3)+'" cy="'+(ry*.45)+'" r="'+(rx*.1)+'" fill="#FFD84D"/></g>'}
-  function tree(x,y,s,cap){return '<g transform="translate('+x+','+y+') scale('+s+')"><path d="M-6,0C-5,-14 -3,-22 -4,-32L4,-32C3,-22 5,-14 6,0Z" fill="#F26A2E" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/><path d="M-1,-2C-1,-12 0,-22 0,-30" stroke="#FFC08A" stroke-width="1.6" fill="none" stroke-linecap="round"/>'+
+  function tree(x,y,s,cap){return '<g transform="translate('+x+','+y+') scale('+s+')"><g class="tr" style="animation-delay:-'+((x*7+y*3)%40/10).toFixed(1)+'s"><path d="M-6,0C-5,-14 -3,-22 -4,-32L4,-32C3,-22 5,-14 6,0Z" fill="#F26A2E" stroke="'+I+'" stroke-width="2" stroke-linejoin="round"/><path d="M-1,-2C-1,-12 0,-22 0,-30" stroke="#FFC08A" stroke-width="1.6" fill="none" stroke-linecap="round"/>'+
     blob(['<circle cx="-11" cy="-40" r="12"/>','<circle cx="11" cy="-42" r="13"/>','<circle cx="0" cy="-50" r="14"/>'],cap,3.6)+
-    '<ellipse cx="-6" cy="-56" rx="6" ry="2.8" fill="#fff" opacity=".6"/><circle cx="-12" cy="-38" r="2" fill="#E63E8E"/><circle cx="14" cy="-37" r="2" fill="#E63E8E"/><circle cx="6" cy="-47" r="1.8" fill="#fff"/></g>'}
+    '<ellipse cx="-6" cy="-56" rx="6" ry="2.8" fill="#fff" opacity=".6"/><circle cx="-12" cy="-38" r="2" fill="#E63E8E"/><circle cx="14" cy="-37" r="2" fill="#E63E8E"/><circle cx="6" cy="-47" r="1.8" fill="#fff"/></g></g>'}
   function flower(x,y,col,s){var p='';for(var j=0;j<5;j++){var a=j*72*Math.PI/180;p+='<circle cx="'+(Math.sin(a)*4.4).toFixed(1)+'" cy="'+(-Math.cos(a)*4.4).toFixed(1)+'" r="3.4" fill="'+col+'" stroke="'+I+'" stroke-width="1"/>'}
     return '<g transform="translate('+x+','+y+') scale('+(s||1)+')"><path d="M0,0L0,9" stroke="'+I+'" stroke-width="3" stroke-linecap="round"/><path d="M0,0L0,9" stroke="#2EB03A" stroke-width="1.6" stroke-linecap="round"/>'+p+'<circle r="2.6" fill="#FFE04D" stroke="'+I+'" stroke-width=".9"/></g>'}
   function bush(x,y,r){return '<g transform="translate('+x+','+y+')">'+blob(['<circle cx="'+(-r*.7)+'" cy="2" r="'+(r*.75)+'"/>','<circle cx="'+(r*.7)+'" cy="2" r="'+(r*.75)+'"/>','<circle r="'+r+'"/>'],'#2FB347',3)+'<ellipse cx="'+(-r*.3)+'" cy="'+(-r*.5)+'" rx="'+(r*.35)+'" ry="'+(r*.18)+'" fill="#fff" opacity=".5"/></g>'}
@@ -1065,8 +1063,9 @@ function boardSVG(){
   }
   o+='<polygon points="210,210 250,210 230,230" fill="'+B.pc[1]+'"/><polygon points="250,210 250,250 230,230" fill="'+B.pc[2]+'"/><polygon points="250,250 210,250 230,230" fill="'+B.pc[3]+'"/><polygon points="210,250 210,210 230,230" fill="'+B.pc[0]+'"/>';
   }
-  if(B.style==='wald'){o+='<g class="windfx" pointer-events="none" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round">'+
-    [[70,110,0],[150,300,1.7],[40,410,3.1],[100,215,4.6],[190,60,2.3]].map(function(w){return '<path class="ws" style="animation-delay:-'+w[2]+'s" d="M'+w[0]+','+w[1]+' q40,-12 80,0 t60,-4 q18,0 24,8"/>'}).join('')+'</g>'}
+  if(B.style==='wald'){o+='<g class="windfx" pointer-events="none" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round">'+
+    [[20,95,0],[60,170,1.1],[10,255,2.0],[40,330,.6],[70,410,2.7],[30,45,1.6],[90,215,3.0]].map(function(w){return '<path class="ws" style="animation-delay:-'+w[2]+'s" d="M'+w[0]+','+w[1]+' q50,-16 100,0 t80,-6 q26,0 30,12 q-4,10 -16,4"/>'}).join('')+'</g>'+
+    '<g pointer-events="none">'+[[40,120,0,'#FFE04D'],[30,200,.9,'#FF8A3D'],[20,290,1.8,'#fff'],[50,370,2.6,'#2FE26A'],[10,60,3.3,'#FF5FA2'],[60,250,4.1,'#FFE04D']].map(function(l){return '<g class="lf" style="animation-delay:-'+l[2]+'s;--y:'+l[1]+'px"><ellipse rx="7" ry="3.4" fill="'+l[3]+'" stroke="#2B1740" stroke-width="1.4"/></g>'}).join('')+'</g>'}
   ST.players.forEach(function(p){
     for(var pi=0;pi<4;pi++){
       var q=ctr(cellOf(p.c,p.pieces[pi],pi));
