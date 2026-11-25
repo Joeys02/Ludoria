@@ -168,8 +168,8 @@ body{margin:0}
 @keyframes ohpop{0%{opacity:0;transform:scale(.3)}10%{opacity:1;transform:scale(1.18)}20%{transform:scale(1)}78%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-8px)}}
 @media (prefers-reduced-motion:reduce){.oh{animation:none}}
 
-.pc .big{transform:translate(0,-5px) scale(1.32);transition:transform .3s}
-.pc[data-s="-1"] .big{transform:translate(0,-1px) scale(.88)}
+.pc .big{transform:translate(0,-8px) scale(1.62);transition:transform .3s}
+.pc[data-s="-1"] .big{transform:translate(0,-4px) scale(1.12)}
 
 .fig .limb{transform-box:fill-box}
 .fig .legA,.fig .legB{transform-origin:50% 0}
@@ -182,6 +182,10 @@ body{margin:0}
 @keyframes lfw{0%{transform:rotate(-28deg)}100%{transform:rotate(26deg)}}
 @keyframes lbk{0%{transform:rotate(26deg)}100%{transform:rotate(-28deg)}}
 @media (prefers-reduced-motion:reduce){.fig.walk,.fig.walk .limb{animation:none!important}}
+.pc .big{filter:drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1.2px #fff)}
+.fig .hat{transform-box:fill-box;transform-origin:45% 95%;animation:wind 3.2s ease-in-out infinite}
+@keyframes wind{0%,100%{transform:rotate(-2deg) skewX(-3deg)}35%{transform:rotate(7deg) skewX(6deg)}60%{transform:rotate(3deg) skewX(2deg)}80%{transform:rotate(9deg) skewX(7deg)}}
+@media (prefers-reduced-motion:reduce){.fig .hat{animation:none}}
 
 /* Sheets */
 .overlay{position:fixed;inset:0;background:rgba(15,12,40,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20}
@@ -963,7 +967,7 @@ function waldFig(col,emoji,ci){
     '<circle cx="0" cy="-69" r="5.2" fill="#FF6B5E"'+w(1.1)+'/><circle cx="-1.4" cy="-70.4" r="1.4" fill="#fff" opacity=".7"/>'+
     '<path d="M-10,-65 Q-5,-71 0,-66 Q5,-71 10,-65 Q5,-62 0,-64 Q-5,-62 -10,-65Z" fill="#F2F4F8"'+w(1)+'/>'+pipe;
   var hat='<path d="M-17,-80 Q-15,-100 -5,-112 Q4,-122 20,-118 Q10,-116 8,-106 Q17,-96 17,-80 Q0,-86 -17,-80Z" fill="'+col+'"'+w(1.5)+'/><path d="M-19,-81 Q0,-89 19,-81 Q15,-75 0,-79 Q-15,-75 -19,-81Z" fill="'+dk+'"'+w(1.3)+'/><path d="M-11,-96 Q-8,-104 -3,-110" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/><circle cx="20" cy="-118" r="3.8" fill="#fff"'+w(1.1)+'/>';
-  return '<g class="fig"><g transform="translate(0,16) scale(.34)">'+legL+legR+torso+armL+armR+scarf+head+hat+'</g></g>';
+  return '<g class="fig"><g transform="translate(0,16) scale(.34)">'+legL+legR+torso+armL+armR+'<g class="scarf">'+scarf+'</g>'+head+'<g class="hat" style="animation-delay:-'+(Math.random()*3.2).toFixed(2)+'s">'+hat+'</g></g></g>';
 }
 var WALD_CACHE={};
 function waldSVG(B){
@@ -1028,7 +1032,7 @@ function waldSVG(B){
   return WALD_CACHE[key]=o;
 }
 function bigFig(f,col){
-  var disc='<ellipse cx="0" cy="17.5" rx="13.5" ry="5" fill="'+col+'" stroke="#2B1740" stroke-width="1.6"/><ellipse cx="-3" cy="16" rx="6" ry="1.6" fill="#fff" opacity=".45"/>';
+  var disc='<ellipse cx="0" cy="19" rx="16" ry="5.6" fill="'+col+'" stroke="#2B1740" stroke-width="1.6"/><ellipse cx="-3" cy="16" rx="6" ry="1.6" fill="#fff" opacity=".45"/>';
   return f.replace('<g class="fig">','<g class="fig">'+disc+'<g class="big">').replace(/<\/g>$/,'</g></g>');
 }
 function boardSVG(){
