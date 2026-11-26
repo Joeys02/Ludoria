@@ -209,6 +209,15 @@ body{margin:0}
 @keyframes sway{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(8deg)}}
 .lf{animation:leaf 4.6s linear infinite}
 @keyframes leaf{0%{transform:translate(-30px,var(--y,0)) rotate(0);opacity:0}10%{opacity:1}50%{transform:translate(240px,calc(var(--y,0) + 30px)) rotate(360deg)}90%{opacity:1}100%{transform:translate(500px,calc(var(--y,0) - 10px)) rotate(720deg);opacity:0}}
+.vsec{margin-top:14px}
+.vsec>b{display:block;margin-bottom:6px}
+.vsec .btn{margin-top:8px;width:100%}
+.vdev{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.vdev .chip{flex:0 1 auto;font-size:14px;padding:8px 12px;min-height:40px}
+.vpl{display:flex;align-items:center;gap:8px;margin-top:6px}
+.vpn{flex:0 0 38%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.vpl input[type=range]{flex:1;min-width:0}
+#vvol{width:100%}
 
 /* Sheets */
 .overlay{position:fixed;inset:0;background:rgba(15,12,40,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20}
@@ -336,7 +345,7 @@ var L={
     choose:'Tippe auf eine leuchtende Figur.',only:'Nur ein Zug möglich. Tippe auf die leuchtende Figur.',noMove:'Kein Zug möglich.',tries:'Noch {k}x würfeln für eine Sechs.',
     again:'Eine Sechs! Nochmal würfeln.',againFlower:'Glücksblume! Nochmal würfeln.',fxBoost:'Rückenwind! 3 Felder vor.',fxBack:'Gegenwind! 3 Felder zurück.',fxPortal:'Portal! 10 Felder weiter.',fxFlower:'Glücksblume! Du darfst nochmal.',wleg:'<b>Sonderfelder:</b> ⏩ Rückenwind +3 · ⏪ Gegenwind −3 · 🍄 Pilz: sicher, nur 1 Figur · 🌀 Portal +10 · 🌼 Nochmal würfeln',kick:'{a} wirft {b} raus!',win:'{n} hat gewonnen!',replay:'Nochmal spielen',menu:'Zum Menü',
     leave:'Spiel verlassen?',leaveSub:'Der Spielstand geht verloren.',stay:'Weiterspielen',leaveBtn:'Verlassen',chooseEmoji:'Figur wählen',
-    player:'Spieler {n}',soon:'Online mit Freunden und Sprachchat kommen als Nächstes.',reactH:'Reaktionen',back:'Zurück',questsH:'Aufgaben',online:'Online mit Familie',offlineH:'Am selben Handy oder gegen den Computer',yourName:'Dein Name',createRoom:'Raum erstellen',joinRoom:'Beitreten',codeLabel:'Raumcode',invite:'Per WhatsApp einladen',copyLink:'Link kopieren',linkCopied:'Link kopiert.',waitHost:'Warte, bis der Host das Spiel startet.',botsLbl:'Computer-Spieler',roomPlayers:'Im Raum',hostTag:'Host',needTwo:'Es braucht 2 bis 4 Spieler.',roomNotFound:'Diesen Raum gibt es nicht.',gameRunning:'Dort läuft schon ein Spiel.',roomFull:'Der Raum ist voll.',notSetup:'Online ist noch nicht eingerichtet. Siehe ANLEITUNG.md.',micDenied:'Kein Mikrofon. Erlaube es im Browser und tippe auf den Mikrofon-Knopf.',netErr:'Keine Verbindung. Versuche es nochmal.',newRound:'Neue Runde',voiceOn:'Mikrofon ausschalten',voiceOff:'Mikrofon einschalten',routeSpk:'Ton über Lautsprecher',routeEar:'Ton über Hörer',inviteText:'Komm in mein Ludoria-Spiel! Raumcode: {c} {u}',stats:'Partien {g} · Siege {w} · Rausgeworfen {k}',rewardLbl:'Belohnung',done:'Geschafft',boardWord:'Brett',diceWord:'Würfel',
+    player:'Spieler {n}',soon:'Online mit Freunden und Sprachchat kommen als Nächstes.',reactH:'Reaktionen',back:'Zurück',questsH:'Aufgaben',online:'Online mit Familie',offlineH:'Am selben Handy oder gegen den Computer',yourName:'Dein Name',createRoom:'Raum erstellen',joinRoom:'Beitreten',codeLabel:'Raumcode',invite:'Per WhatsApp einladen',copyLink:'Link kopieren',linkCopied:'Link kopiert.',waitHost:'Warte, bis der Host das Spiel startet.',botsLbl:'Computer-Spieler',roomPlayers:'Im Raum',hostTag:'Host',needTwo:'Es braucht 2 bis 4 Spieler.',roomNotFound:'Diesen Raum gibt es nicht.',gameRunning:'Dort läuft schon ein Spiel.',roomFull:'Der Raum ist voll.',notSetup:'Online ist noch nicht eingerichtet. Siehe ANLEITUNG.md.',vmTitle:'Sprache',vmMic:'Mikrofon',vmMicOn:'Mit Mikrofon',vmMicOff:'Nur zuhören',vmOut:'Ton-Ausgabe',vmSpk:'Lautsprecher',vmEar:'Hörer',vmVol:'Lautstärke',vmPlayers:'Mitspieler',vmDefault:'Automatisch',vmDone:'Fertig',vmOutHint:'Ein Headset wird vom Handy automatisch erkannt. Am PC wählst du es hier aus.',micHint:'Du hörst die anderen. Tippe auf 🎧, um mit Mikrofon mitzureden.',micDenied:'Kein Mikrofon. Erlaube es im Browser und tippe auf den Mikrofon-Knopf.',netErr:'Keine Verbindung. Versuche es nochmal.',newRound:'Neue Runde',voiceOn:'Mikrofon ausschalten',voiceOff:'Mikrofon einschalten',routeSpk:'Ton über Lautsprecher',routeEar:'Ton über Hörer',inviteText:'Komm in mein Ludoria-Spiel! Raumcode: {c} {u}',stats:'Partien {g} · Siege {w} · Rausgeworfen {k}',rewardLbl:'Belohnung',done:'Geschafft',boardWord:'Brett',diceWord:'Würfel',
     quest:'Aufgabe geschafft! Neu: {x}',lockedMsg:'Gesperrt. Aufgabe: {q}',newUnlock:'Neu freigeschaltet',sfxOn:'Geräusche ausschalten',sfxOff:'Geräusche einschalten',musicOn:'Musik ausschalten',musicOff:'Musik einschalten',
     q_games:'Spiele {n} Partien',q_wins1:'Gewinne 1 Partie',q_wins:'Gewinne {n} Partien',q_kicks:'Wirf {n} Figuren raus',q_sixes:'Würfle {n} Sechsen',q_goals:'Bringe {n} Figuren ins Ziel',
     b_classic:'Klassik',b_meadow:'Wiese',b_ocean:'Ozean',b_night:'Nachthimmel',b_wald:'Knallwald',d_classic:'Klassisch',d_candy:'Bonbon',d_night:'Nacht',d_gold:'Gold'},
@@ -345,7 +354,7 @@ var L={
     choose:'Tap a glowing piece.',only:'Only one move possible. Tap the glowing piece.',noMove:'No move possible.',tries:'{k} more rolls to get a six.',
     again:'A six! Roll again.',againFlower:'Lucky flower! Roll again.',fxBoost:'Tailwind! 3 steps forward.',fxBack:'Headwind! 3 steps back.',fxPortal:'Portal! 10 steps ahead.',fxFlower:'Lucky flower! Roll again.',wleg:'<b>Special fields:</b> ⏩ Tailwind +3 · ⏪ Headwind −3 · 🍄 Mushroom: safe, 1 piece only · 🌀 Portal +10 · 🌼 Roll again',kick:'{a} bumps {b} out!',win:'{n} wins!',replay:'Play again',menu:'Back to menu',
     leave:'Leave the game?',leaveSub:'Your progress will be lost.',stay:'Keep playing',leaveBtn:'Leave',chooseEmoji:'Choose token',
-    player:'Player {n}',soon:'Online play with friends and voice chat are coming next.',reactH:'Reactions',back:'Back',questsH:'Quests',online:'Online with family',offlineH:'Same phone or against the computer',yourName:'Your name',createRoom:'Create room',joinRoom:'Join',codeLabel:'Room code',invite:'Invite via WhatsApp',copyLink:'Copy link',linkCopied:'Link copied.',waitHost:'Waiting for the host to start the game.',botsLbl:'Computer players',roomPlayers:'In the room',hostTag:'Host',needTwo:'You need 2 to 4 players.',roomNotFound:'That room does not exist.',gameRunning:'A game is already running there.',roomFull:'The room is full.',notSetup:'Online is not set up yet. See ANLEITUNG.md.',micDenied:'No microphone. Allow it in your browser and tap the microphone button.',netErr:'No connection. Please try again.',newRound:'New round',voiceOn:'Turn microphone off',voiceOff:'Turn microphone on',routeSpk:'Sound via speaker',routeEar:'Sound via earpiece',inviteText:'Join my Ludoria game! Room code: {c} {u}',stats:'Games {g} · Wins {w} · Bumped {k}',rewardLbl:'Reward',done:'Done',boardWord:'Board',diceWord:'Dice',
+    player:'Player {n}',soon:'Online play with friends and voice chat are coming next.',reactH:'Reactions',back:'Back',questsH:'Quests',online:'Online with family',offlineH:'Same phone or against the computer',yourName:'Your name',createRoom:'Create room',joinRoom:'Join',codeLabel:'Room code',invite:'Invite via WhatsApp',copyLink:'Copy link',linkCopied:'Link copied.',waitHost:'Waiting for the host to start the game.',botsLbl:'Computer players',roomPlayers:'In the room',hostTag:'Host',needTwo:'You need 2 to 4 players.',roomNotFound:'That room does not exist.',gameRunning:'A game is already running there.',roomFull:'The room is full.',notSetup:'Online is not set up yet. See ANLEITUNG.md.',vmTitle:'Voice',vmMic:'Microphone',vmMicOn:'With microphone',vmMicOff:'Listen only',vmOut:'Sound output',vmSpk:'Speaker',vmEar:'Earpiece',vmVol:'Volume',vmPlayers:'Players',vmDefault:'Automatic',vmDone:'Done',vmOutHint:'A headset is detected automatically on your phone. On a PC pick it here.',micHint:'You can hear the others. Tap 🎧 to talk with your microphone.',micDenied:'No microphone. Allow it in your browser and tap the microphone button.',netErr:'No connection. Please try again.',newRound:'New round',voiceOn:'Turn microphone off',voiceOff:'Turn microphone on',routeSpk:'Sound via speaker',routeEar:'Sound via earpiece',inviteText:'Join my Ludoria game! Room code: {c} {u}',stats:'Games {g} · Wins {w} · Bumped {k}',rewardLbl:'Reward',done:'Done',boardWord:'Board',diceWord:'Dice',
     quest:'Quest complete! New: {x}',lockedMsg:'Locked. Quest: {q}',newUnlock:'Newly unlocked',sfxOn:'Turn sounds off',sfxOff:'Turn sounds on',musicOn:'Turn music off',musicOff:'Turn music on',
     q_games:'Play {n} games',q_wins1:'Win 1 game',q_wins:'Win {n} games',q_kicks:'Bump out {n} pieces',q_sixes:'Roll {n} sixes',q_goals:'Get {n} pieces home',
     b_classic:'Classic',b_meadow:'Meadow',b_ocean:'Ocean',b_night:'Night sky',b_wald:'Bang forest',d_classic:'Classic',d_candy:'Candy',d_night:'Night',d_gold:'Gold'}
@@ -456,7 +465,7 @@ function showDice(v){
 var G=null,gid=0,ST=null,MODE='local',REF=null,LST=[],LOB={},SET={},PRES={},ROOM={code:null,host:null};
 var tmr=null,tick=null,lastChange=0,seenReact,builtGid=null,overSeen=null,lastFace=1,db=null;
 var CFG=window.LUDORIA_CONFIG||{};
-var V={route:'web',on:false,stream:null,track:null,mine:null,lvl:null,t:0,refs:[],peersInfo:{},muted:false,err:false,speaking:{}};
+var V={pv:{},hint:false,route:'web',on:false,stream:null,track:null,mine:null,lvl:null,t:0,refs:[],peersInfo:{},muted:false,err:false,speaking:{}};
 function ph(v){return !v||/DEINE|YOUR|XXXX/i.test(String(v))}
 function onlineReady(){return !!(window.firebase&&CFG.firebase&&!ph(CFG.firebase.databaseURL)&&!ph(CFG.firebase.apiKey))}
 function voiceReady(){return !!(window.RTCPeerConnection&&window.navigator&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)}
@@ -489,8 +498,8 @@ function segHTML(act,vals,cur,fn){
 }
 function voiceBtn(){
   if(MODE!=='online'||!voiceReady())return '';
-  return '<button class="mb vb" data-act="voice" aria-pressed="'+(!V.muted&&!V.err)+'" aria-label="'+t(V.muted?'voiceOff':'voiceOn')+'">'+(V.err?'🚫':V.muted?'🤫':'🎙️')+'</button>'+
-    '<button class="mb ob" data-act="vout" aria-label="'+t(V.route==='web'?'routeSpk':'routeEar')+'">'+(V.route==='web'?'🔊':'📞')+'</button>';
+  return '<button class="mb vb" data-act="voice" aria-pressed="'+(!!V.track&&!V.muted&&!V.err)+'" aria-label="'+t(V.track&&!V.muted?'voiceOn':'voiceOff')+'">'+(V.err?'🚫':!V.track?'🎧':V.muted?'🤫':'🎙️')+'</button>'+
+    '<button class="mb" data-act="vmenu" aria-label="'+t('vmTitle')+'">⚙️</button>';
 }
 function stopLoops(){clearTimeout(tmr);tmr=null;if(tick){clearInterval(tick);tick=null}}
 
@@ -1236,14 +1245,22 @@ function updOutBtn(){
     b.textContent=V.route==='web'?'🔊':'📞';
   });
 }
+function vvol(){return S.vol==null?1:S.vol}
+function pvOf(u){return V.pv[u]||(V.pv[u]={v:1,m:false})}
 function applyRoute(p){
-  var web=V.route==='web';
+  var web=V.route==='web',q=pvOf(p.vuid),g=q.m?0:q.v*vvol();
   if(web&&p.stream&&!p.node){
     var c=actx();
     if(c){try{p.node=c.createMediaStreamSource(p.stream);p.gn=c.createGain();p.node.connect(p.gn);p.gn.connect(c.destination)}catch(e){p.node=null;p.gn=null}}
   }
-  if(p.gn)p.gn.gain.value=(web&&p.node)?1:0;
-  if(p.audio)p.audio.muted=!!(web&&p.node);
+  if(p.gn)p.gn.gain.value=(web&&p.node)?g:0;
+  if(p.audio){p.audio.muted=!!(web&&p.node);try{p.audio.volume=Math.max(0,Math.min(1,g))}catch(e){}}
+}
+function applyAll(){Object.keys(VP).forEach(function(k){applyRoute(VP[k])})}
+function applyOut(){
+  var id=S.outDev||'';
+  try{if(AUDIO_CTX&&AUDIO_CTX.setSinkId)AUDIO_CTX.setSinkId(id)}catch(e){}
+  Object.keys(VP).forEach(function(k){var a=VP[k].audio;if(a&&a.setSinkId){try{a.setSinkId(id).catch(function(){})}catch(e){}}});
 }
 function voiceRoute(){
   V.route=V.route==='web'?'el':'web';
@@ -1252,9 +1269,9 @@ function voiceRoute(){
 }
 function updVoiceBtn(){
   document.querySelectorAll('.vb').forEach(function(b){
-    b.setAttribute('aria-pressed',String(!V.muted&&!V.err));
-    b.setAttribute('aria-label',t(V.muted?'voiceOff':'voiceOn'));
-    b.textContent=V.err?'🚫':V.muted?'🤫':'🎙️';
+    b.setAttribute('aria-pressed',String(!!V.track&&!V.muted&&!V.err));
+    b.setAttribute('aria-label',t(V.track&&!V.muted?'voiceOn':'voiceOff'));
+    b.textContent=V.err?'🚫':!V.track?'🎧':V.muted?'🤫':'🎙️';
   });
 }
 function iceCfg(){
@@ -1304,7 +1321,7 @@ function makePeer(cid,inf,init){
       document.body.appendChild(a);p.audio=a;
     }
     p.audio.srcObject=st;p.stream=st;
-    applyRoute(p);
+    applyRoute(p);applyOut();
     try{var pr=p.audio.play();if(pr&&pr.catch)pr.catch(function(){})}catch(err){}
     if(!p.lvl)p.lvl=watchLevel(st,p.vuid);
   };
@@ -1378,8 +1395,20 @@ function voiceJoin(){
     c.on('value',function(s){if(s.val()){me.set({vuid:ME.vuid,t:V.t});me.onDisconnect().remove()}});V.refs.push(c);
     updVoiceBtn();
   };
-  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}).then(go,function(){
-    V.err=true;updVoiceBtn();toast(t('micDenied'));go(null);
+  var fail=function(){V.err=true;updVoiceBtn();toast(t('micDenied'));go(null)};
+  if(S.mic!==true){
+    go(null);
+    if(!V.hint){V.hint=true;toast(t('micHint'))}
+    return;
+  }
+  var base={echoCancellation:true,noiseSuppression:true,autoGainControl:true};
+  var get=function(dev){
+    var a=base;
+    if(dev){a={echoCancellation:true,noiseSuppression:true,autoGainControl:true,deviceId:{exact:dev}}}
+    return navigator.mediaDevices.getUserMedia({audio:a});
+  };
+  get(S.micDev||'').then(go,function(){
+    if(S.micDev){S.micDev='';save();get('').then(go,fail)}else fail();
   });
 }
 function voiceLeave(){
@@ -1391,9 +1420,46 @@ function voiceLeave(){
   try{if(V.stream)V.stream.getTracks().forEach(function(tr){tr.stop()})}catch(e){}
   V.stream=null;V.track=null;V.mine=null;V.lvl=null;V.err=false;V.muted=false;V.speaking={};V.peersInfo={};
 }
+function voiceRestart(){var c=ROOM.code;voiceLeave();if(c)voiceJoin();updVoiceBtn()}
 function voiceToggle(){
-  if(V.err||!V.track){var c=ROOM.code;voiceLeave();if(c)voiceJoin();updVoiceBtn();return}
+  if(V.err||!V.track){S.mic=true;save();voiceRestart();return}
   V.muted=!V.muted;V.track.enabled=!V.muted;updVoiceBtn();
+}
+function voiceMenu(){
+  var h='<h2>'+t('vmTitle')+'</h2>';
+  h+='<div class="vsec"><b>'+t('vmMic')+'</b><div class="seg" role="group"><button data-act="vmic" data-v="1" aria-pressed="'+(!!V.track)+'">'+t('vmMicOn')+'</button><button data-act="vmic" data-v="0" aria-pressed="'+(!V.track)+'">'+t('vmMicOff')+'</button></div>';
+  if(V.track)h+='<button class="btn ghost" data-act="vmute">'+(V.muted?'🤫 '+t('voiceOff'):'🎙️ '+t('voiceOn'))+'</button>';
+  h+='<div id="vdevin" class="vdev"></div></div>';
+  h+='<div class="vsec"><b>'+t('vmOut')+'</b><div class="seg" role="group"><button data-act="vroute" data-v="web" aria-pressed="'+(V.route==='web')+'">🔊 '+t('vmSpk')+'</button><button data-act="vroute" data-v="el" aria-pressed="'+(V.route!=='web')+'">📞 '+t('vmEar')+'</button></div><div id="vdevout" class="vdev"></div></div>';
+  h+='<div class="vsec"><b>'+t('vmVol')+'</b><input type="range" id="vvol" min="0" max="100" value="'+Math.round(vvol()*100)+'" aria-label="'+t('vmVol')+'"></div>';
+  var others=(ST&&ST.players||[]).filter(function(p){return p.human&&p.vuid&&p.vuid!==ME.vuid});
+  if(others.length){
+    h+='<div class="vsec"><b>'+t('vmPlayers')+'</b>'+others.map(function(p){
+      var q=pvOf(p.vuid);
+      return '<div class="vpl"><span class="vpn">'+esc(p.emoji||'🙂')+' '+esc(p.name||'?')+'</span><input type="range" min="0" max="150" value="'+Math.round(q.v*100)+'" data-pv="'+p.vuid+'" aria-label="'+esc(p.name||'?')+'"><button class="mb" data-act="vpm" data-u="'+p.vuid+'" aria-pressed="'+(!q.m)+'" aria-label="'+esc(p.name||'?')+'">'+(q.m?'🔇':'🔊')+'</button></div>';
+    }).join('')+'</div>';
+  }
+  h+='<div class="row2"><button class="btn" data-act="close">'+t('vmDone')+'</button></div>';
+  openSheet(h);
+  fillDevs();
+}
+function fillDevs(){
+  var md=navigator.mediaDevices;
+  if(!md||!md.enumerateDevices)return;
+  md.enumerateDevices().then(function(list){
+    var ins=list.filter(function(d){return d.kind==='audioinput'}),outs=list.filter(function(d){return d.kind==='audiooutput'});
+    var ei=$('#vdevin'),eo=$('#vdevout');
+    function btn(act,id,label,on){return '<button class="chip" data-act="'+act+'" data-v="'+esc(id)+'" aria-pressed="'+on+'">'+esc(label)+'</button>'}
+    if(ei){
+      ei.innerHTML=V.track&&ins.length?btn('vin','',t('vmDefault'),!S.micDev)+ins.map(function(d,i){
+        return d.deviceId&&d.deviceId!=='default'&&d.deviceId!=='communications'?btn('vin',d.deviceId,d.label||(t('vmMic')+' '+(i+1)),S.micDev===d.deviceId):'';
+      }).join(''):'';
+    }
+    if(eo){
+      var o=outs.filter(function(d){return d.deviceId&&d.deviceId!=='default'&&d.deviceId!=='communications'});
+      eo.innerHTML=o.length?btn('vout2','',t('vmDefault'),!S.outDev)+o.map(function(d,i){return btn('vout2',d.deviceId,d.label||(t('vmOut')+' '+(i+1)),S.outDev===d.deviceId)}).join(''):'<p class="sub" style="margin:6px 0 0">'+t('vmOutHint')+'</p>';
+    }
+  }).catch(function(){});
 }
 setInterval(function(){if(MODE==='online'&&ST&&isHost()&&!tmr)schedule()},3000);
 
@@ -1437,6 +1503,13 @@ function handle(t0){
     case 'music':toggleSfx();break;
     case 'voice':voiceToggle();break;
     case 'vout':voiceRoute();break;
+    case 'vmenu':voiceMenu();break;
+    case 'vmic':S.mic=(v==='1');save();voiceRestart();setTimeout(voiceMenu,900);break;
+    case 'vmute':voiceToggle();voiceMenu();break;
+    case 'vroute':if((V.route==='web')!==(v==='web'))voiceRoute();voiceMenu();break;
+    case 'vin':S.micDev=v;save();voiceRestart();setTimeout(voiceMenu,900);break;
+    case 'vout2':S.outDev=v;save();applyOut();voiceMenu();break;
+    case 'vpm':{var q=pvOf(+t0.dataset.u);q.m=!q.m;applyAll();voiceMenu();break}
     case 'start':startLocal();break;
     case 'create':createRoom();break;
     case 'join':joinRoom();break;
@@ -1506,11 +1579,25 @@ document.addEventListener('input',function(e){
   var el=e.target,n=el.dataset&&el.dataset.name;
   if(n!==undefined){S.names[+n]=el.value;save();return}
   if(el.id==='myname'){ME.name=el.value;saveMe();return}
+  if(el.id==='vvol'){S.vol=(+el.value)/100;save();applyAll();return}
+  if(el.dataset&&el.dataset.pv){pvOf(+el.dataset.pv).v=(+el.value)/100;applyAll();return}
   if(el.id==='joincode'){var v=el.value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);if(v!==el.value)el.value=v}
 });
+
+(function(){
+  var lp=null;
+  document.addEventListener('pointerdown',function(e){
+    var b=e.target.closest&&e.target.closest('.vb');if(!b)return;
+    clearTimeout(lp);lp=setTimeout(function(){V.lpDone=true;voiceMenu()},600);
+  });
+  ['pointerup','pointercancel','pointerleave','scroll'].forEach(function(n){document.addEventListener(n,function(){clearTimeout(lp)},true)});
+  document.addEventListener('click',function(e){
+    if(V.lpDone){V.lpDone=false;if(e.target.closest&&e.target.closest('.vb')){e.stopImmediatePropagation();e.preventDefault()}}
+  },true);
+})();
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('#overlay').hidden)closeSheet()});
 
-if(window.__LUDORIA_TEST)window.__ludoria={st:function(){return ST},mode:function(){return MODE},room:function(){return ROOM},lob:function(){return LOB},fireworks:function(){fireworks()}};
+if(window.__LUDORIA_TEST)window.__ludoria={st:function(){return ST},mode:function(){return MODE},room:function(){return ROOM},lob:function(){return LOB},fireworks:function(){fireworks()},voiceMenu:function(){voiceMenu()}};
 home();
 })();
 </script>
